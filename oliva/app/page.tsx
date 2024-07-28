@@ -26,7 +26,7 @@ export default function Home() {
             Track and analyze your olives.
           </p>
           <Button asChild className="mt-4">
-            <Link href="/add-orchard">Get Started</Link>
+            <Link href="/orchards">Get Started</Link>
           </Button>
         </div>
         <Image src={LandingImg} alt="landing" className="hidden lg:block " />
