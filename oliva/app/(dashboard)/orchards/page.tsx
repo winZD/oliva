@@ -20,15 +20,15 @@ const OrchardsPage = () => {
         {/* <div className="col-span-2">
           <FertilizerCard />
         </div> */}
-        <div className="col-span-2">
+        <div className="col-span-6">
           <OrchardCard data={orchards} />
         </div>
-        <div className="col-span-2">
+        {/*   <div className="col-span-2">
           <PrunningAndHarvestingCarData data={pruneHarvestData} />
         </div>
         <div className="col-span-2">
           <HarvestCard />
-        </div>
+        </div> */}
         <div className="col-span-6">
           <CustomTable data={data} />
         </div>
