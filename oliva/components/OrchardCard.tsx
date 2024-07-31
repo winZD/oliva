@@ -10,19 +10,21 @@ import {
 } from "./ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import { chartConfig2 } from "@/utils/mockData";
-import { Label, Pie, PieChart } from "recharts";
+import { Cell, Label, Pie, PieChart } from "recharts";
 import { TrendingUp } from "lucide-react";
+import { OrchardType } from "@/utils/models/orchardModel";
+import { barColors } from "@/utils/chartColors";
 
-const OrchardCard = ({ data }: { data: any[] }) => {
-  const totalVisitors = React.useMemo(() => {
-    return data.reduce((acc, curr) => acc + curr.oliveTrees, 0);
+const OrchardCard = ({ data }: { data: OrchardType[] }) => {
+  const totalTrees = React.useMemo(() => {
+    return data.reduce((acc, curr) => acc + curr.trees, 0);
   }, []);
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Donut with Text</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Orchards</CardTitle>
+        <CardDescription>Orchards by number of trees</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -36,11 +38,15 @@ const OrchardCard = ({ data }: { data: any[] }) => {
             />
             <Pie
               data={data}
-              dataKey="oliveTrees"
-              nameKey="property"
+              dataKey="trees"
+              nameKey="name"
               innerRadius={60}
               strokeWidth={5}
             >
+              {data.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
+              ))}
+
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
@@ -56,7 +62,7 @@ const OrchardCard = ({ data }: { data: any[] }) => {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalTrees.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

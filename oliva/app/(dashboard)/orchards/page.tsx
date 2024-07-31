@@ -1,6 +1,7 @@
 import FertilizerCard from "@/components/FertilizerCard";
 import HarvestCard from "@/components/HarvestCard";
 import OrchardCard from "@/components/OrchardCard";
+import OrchardChartContainer from "@/components/OrchardChartContainer";
 import PrunningAndHarvestingCarData from "@/components/PrunningAndHarvestingCard";
 
 import CustomTable from "@/components/Table";
@@ -28,20 +29,20 @@ const OrchardsPage = async () => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div>
         <h1 className="text-2xl">ORCHARDS</h1>
-        <div className="grid grid-cols-6 gap-5">
+        <div className="">
           {/* <div className="col-span-2">
           <FertilizerCard />
         </div> */}
-          <div className="col-span-6">
-            <OrchardCard data={orchards} />
-          </div>
+
+          <OrchardChartContainer />
+
           {/*   <div className="col-span-2">
           <PrunningAndHarvestingCarData data={pruneHarvestData} />
         </div>
         <div className="col-span-2">
           <HarvestCard />
         </div> */}
-          <div className="col-span-6">
+          <div className="">
             <CustomTable /* data={data}  */ />
           </div>
         </div>
