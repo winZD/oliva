@@ -9,7 +9,7 @@ const OrchardChartContainer = () => {
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
   });
-  return <OrchardCard data={data!} />;
+  return <OrchardCard data={data ? data : []} />;
 };
 
 export default OrchardChartContainer;

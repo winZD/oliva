@@ -20,11 +20,7 @@ const OrchardsPage = async () => {
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
   });
-  const data = [
-    { orchard: "Orchard 1", size: 30, position: "North", oliveTrees: 25 },
-    { orchard: "Orchard 2", size: 45, position: "South", oliveTrees: 35 },
-    // Add more orchards as needed
-  ];
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div>

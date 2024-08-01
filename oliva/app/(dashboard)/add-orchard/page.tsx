@@ -1,5 +1,7 @@
+import CreateOrchardForm from "@/components/CreateOrchardForm";
+
 const AddOrchardPage = () => {
-  return <div>Add orchard</div>;
+  return <CreateOrchardForm />;
 };
 
 export default AddOrchardPage;
