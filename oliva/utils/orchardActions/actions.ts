@@ -1,16 +1,17 @@
 "use server";
 
 import prisma from "../db";
-import { OrchardType } from "../models/orchardModel";
+import { CreateAndEditOrchardType, OrchardType } from "../models/orchardModel";
+import { createAndEditOrchardFormSchema } from "./validations";
 
 export const createOrchardAction = async (
-  values: OrchardType
+  values: CreateAndEditOrchardType
 ): Promise<OrchardType | null> => {
   /* const userId = authenticateAndRedirect(); */
   try {
-    /*  createAndEditJobSchema.parse(values); */
+    createAndEditOrchardFormSchema.parse(values);
     const orchard: OrchardType = await prisma.orchard.create({
-      data: { ...values },
+      data: { clerkId: "1234", ...values },
     });
     return orchard;
   } catch (error) {

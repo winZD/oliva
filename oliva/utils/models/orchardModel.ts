@@ -1,3 +1,6 @@
+import { z } from "zod";
+import { createAndEditOrchardFormSchema } from "../orchardActions/validations";
+
 export type OrchardType = {
   id: string;
   clerkId: string;
@@ -9,3 +12,7 @@ export type OrchardType = {
   trees: number;
   note: string;
 };
+
+export type CreateAndEditOrchardType = z.infer<
+  typeof createAndEditOrchardFormSchema
+>;

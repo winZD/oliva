@@ -5,8 +5,13 @@ import { z } from "zod";
 import { Form } from "./ui/form";
 import { CustomFormField } from "./FormComponents";
 import { Button } from "./ui/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { createOrchardAction } from "@/utils/orchardActions/actions";
+import { CreateAndEditOrchardType } from "@/utils/models/orchardModel";
+import { createAndEditOrchardFormSchema } from "@/utils/orchardActions/validations";
 
-const formSchema = z.object({
+/* const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
@@ -24,23 +29,43 @@ const formSchema = z.object({
     { message: "Invalid number" }
   ),
   note: z.string(),
-});
+}); */
 const CreateOrchardForm = () => {
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreateAndEditOrchardType>({
+    resolver: zodResolver(createAndEditOrchardFormSchema),
     defaultValues: {
       name: "",
       place: "",
       size: "",
-      trees: "",
+      trees: 0,
       note: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const queryClient = useQueryClient();
+
+  /*   const { toast } = useToast() */ const router = useRouter();
+
+  const { isPending, mutate } = useMutation({
+    mutationFn: (values: CreateAndEditOrchardType) =>
+      createOrchardAction({ ...values }),
+    onSuccess: (data) => {
+      if (!data) {
+        /*   toast({ description: "There was an error!" }); */
+        return;
+      }
+      /* toast({ description: "Job created!" }); */
+      queryClient.invalidateQueries({ queryKey: ["orchards"] });
+
+      router.push("/orchards");
+    },
+  });
+
+  function onSubmit(values: CreateAndEditOrchardType) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    mutate(values);
     console.log(values);
   }
   return (
