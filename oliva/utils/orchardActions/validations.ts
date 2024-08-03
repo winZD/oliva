@@ -13,7 +13,6 @@ export const createAndEditOrchardFormSchema = z.object({
   trees: z
     .string()
     .min(1, { message: "Field is required" })
-    .transform((value) => (value === "" ? "" : Number(value)))
     .refine((value) => !isNaN(Number(value)) && Number(value) > 0, {
       message: "Value must be a positive number",
     }),
