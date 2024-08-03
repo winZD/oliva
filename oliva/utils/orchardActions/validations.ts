@@ -10,12 +10,12 @@ export const createAndEditOrchardFormSchema = z.object({
   size: z.string().min(2, {
     message: "Size must be at least 2 characters.",
   }),
-  trees: z.number().refine(
-    (v) => {
-      let n = Number(v);
-      return !isNaN(n) && v > 0;
-    },
-    { message: "Invalid number" }
-  ),
+  trees: z
+    .string()
+    .min(1, { message: "Field is required" })
+    .transform((value) => (value === "" ? "" : Number(value)))
+    .refine((value) => !isNaN(Number(value)) && Number(value) > 0, {
+      message: "Value must be a positive number",
+    }),
   note: z.string(),
 });

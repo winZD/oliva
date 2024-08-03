@@ -38,7 +38,7 @@ const CreateOrchardForm = () => {
       name: "",
       place: "",
       size: "",
-      trees: undefined,
+      trees: "",
       note: "",
     },
   });
