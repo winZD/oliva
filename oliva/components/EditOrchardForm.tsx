@@ -1,62 +1,49 @@
 "use client";
+import { CreateAndEditOrchardType } from "@/utils/models/orchardModel";
+import {
+  getOrchardByIdAction,
+  updateOrchardAction,
+} from "@/utils/orchardActions/actions";
+import { createAndEditOrchardFormSchema } from "@/utils/orchardActions/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Form } from "./ui/form";
 import { CustomFormField } from "./FormComponents";
 import { Button } from "./ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { createOrchardAction } from "@/utils/orchardActions/actions";
-import { CreateAndEditOrchardType } from "@/utils/models/orchardModel";
-import { createAndEditOrchardFormSchema } from "@/utils/orchardActions/validations";
 
-/* const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  place: z.string().min(2, {
-    message: "Place must be at least 2 characters.",
-  }),
-  size: z.string().min(2, {
-    message: "Size must be at least 2 characters.",
-  }),
-  trees: z.string().refine(
-    (v) => {
-      let n = Number(v);
-      return !isNaN(n) && v?.length > 0;
-    },
-    { message: "Invalid number" }
-  ),
-  note: z.string(),
-}); */
-const CreateOrchardForm = () => {
-  // 1. Define your form.
-  const form = useForm<CreateAndEditOrchardType>({
-    resolver: zodResolver(createAndEditOrchardFormSchema),
-    defaultValues: {
-      name: "",
-      place: "",
-      size: "",
-      trees: undefined,
-      note: "",
-    },
-  });
-
+const EditOrchardForm = ({ orchardId }: { orchardId: string }) => {
   const queryClient = useQueryClient();
 
   /*   const { toast } = useToast() */ const router = useRouter();
 
+  const { data } = useQuery({
+    queryKey: ["orchard", orchardId],
+    queryFn: () => getOrchardByIdAction(orchardId),
+  });
+  const form = useForm<CreateAndEditOrchardType>({
+    resolver: zodResolver(createAndEditOrchardFormSchema),
+    defaultValues: {
+      name: data?.name || "",
+      place: data?.place || "",
+      size: data?.size || "",
+      trees: data?.trees || 0,
+      note: data?.note || "",
+    },
+  });
+
   const { isPending, mutate } = useMutation({
     mutationFn: (values: CreateAndEditOrchardType) =>
-      createOrchardAction({ ...values }),
+      updateOrchardAction(orchardId, values),
     onSuccess: (data) => {
       if (!data) {
         /*   toast({ description: "There was an error!" }); */
         return;
       }
-      /* toast({ description: "Job created!" }); */
+      /* toast({ description: "ORchard edited!" }); */
       queryClient.invalidateQueries({ queryKey: ["orchards"] });
+      queryClient.invalidateQueries({ queryKey: ["orchard", orchardId] });
 
       router.push("/orchards");
     },
@@ -96,10 +83,10 @@ const CreateOrchardForm = () => {
           control={form.control}
           description="Write some note."
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Edit</Button>
       </form>
     </Form>
   );
 };
 
-export default CreateOrchardForm;
+export default EditOrchardForm;
