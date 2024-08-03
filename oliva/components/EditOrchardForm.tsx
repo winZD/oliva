@@ -28,7 +28,7 @@ const EditOrchardForm = ({ orchardId }: { orchardId: string }) => {
       name: data?.name || "",
       place: data?.place || "",
       size: data?.size || "",
-      trees: data?.trees || "",
+      trees: data?.trees.toString() || "",
       note: data?.note || "",
     },
   });
