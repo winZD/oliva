@@ -12,8 +12,10 @@ import {
   TableRow,
 } from "./ui/table";
 import { getOrchardsAction } from "@/utils/orchardActions/actions";
+import { useRouter } from "next/navigation";
 
 const CustomTable = () => {
+  const router = useRouter();
   const { data, isPending } = useQuery({
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
@@ -46,7 +48,12 @@ const CustomTable = () => {
               <Button size={"default"}>Delete</Button>
             </TableCell>
             <TableCell className="text-right">
-              <Button size={"icon"}>Edit</Button>
+              <Button
+                onClick={() => router.push(`orchards/${orchard.id}`)}
+                size={"icon"}
+              >
+                Edit
+              </Button>
             </TableCell>
           </TableRow>
         ))}
