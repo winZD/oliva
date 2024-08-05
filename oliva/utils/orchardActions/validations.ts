@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { startsWithZero } from "../helpers/validationHelpers";
 
 export const createAndEditOrchardFormSchema = z.object({
   name: z.string().min(2, {
@@ -15,6 +16,9 @@ export const createAndEditOrchardFormSchema = z.object({
     .min(1, { message: "Field is required" })
     .refine((value) => !isNaN(Number(value)) && Number(value) > 0, {
       message: "Value must be a positive number",
+    })
+    .refine((value) => startsWithZero(value), {
+      message: "Trees count cannot start with 0!",
     }),
   note: z.string(),
 });
