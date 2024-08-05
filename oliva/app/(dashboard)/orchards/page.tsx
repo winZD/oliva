@@ -25,20 +25,22 @@ const OrchardsPage = async () => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div>
         <h1 className="text-2xl">ORCHARDS</h1>
-        <div className="">
+        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
           {/* <div className="col-span-2">
           <FertilizerCard />
         </div> */}
 
-          <OrchardChartContainer />
+          <div className="col-span-3 lg:col-span-6">
+            <OrchardChartContainer />
+          </div>
 
-          {/*   <div className="col-span-2">
-          <PrunningAndHarvestingCarData data={pruneHarvestData} />
-        </div>
-        <div className="col-span-2">
-          <HarvestCard />
-        </div> */}
-          <div className="">
+          {/* <div className="col-span-3  lg:col-span-2">
+            <PrunningAndHarvestingCarData data={pruneHarvestData} />
+          </div>
+          <div className="col-span-3  lg:col-span-2">
+            <HarvestCard />
+          </div> */}
+          <div className="md:hidden lg:block col-span-6">
             <CustomTable /* data={data}  */ />
           </div>
         </div>

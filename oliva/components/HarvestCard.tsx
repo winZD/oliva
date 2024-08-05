@@ -10,7 +10,7 @@ const HarvestCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle> HarvestCard</CardTitle>
+        <CardTitle>TOTAL HarvestCard</CardTitle>
         <CardDescription> HarvestCardData</CardDescription>
       </CardHeader>
       <CardContent>

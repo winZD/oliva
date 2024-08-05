@@ -46,51 +46,58 @@ const CustomTable = () => {
   if (orchards.length < 1) return <div>No jobs found...</div>;
 
   return (
-    <Table>
-      <TableCaption>A list of your orchards.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Name</TableHead>
-          <TableHead>Size</TableHead>
-          <TableHead>Olive trees</TableHead>
-          <TableHead className="text-right">Position</TableHead>
-          <TableHead></TableHead>
-          <TableHead></TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {orchards?.map((orchard) => (
-          <TableRow key={orchard.id}>
-            <TableCell className="font-medium">{orchard.name}</TableCell>
-            <TableCell>{orchard.size}</TableCell>
-            <TableCell>{orchard.trees}</TableCell>
-            <TableCell className="text-right">{orchard.place}</TableCell>
-            <TableCell className="text-right">
-              <Button
-                onClick={async () => await mutate(orchard?.id)}
-                size={"default"}
-              >
-                Delete
-              </Button>
-            </TableCell>
-            <TableCell className="text-right">
-              <Button
-                onClick={() => router.push(`orchards/${orchard?.id}`)}
-                size={"icon"}
-              >
-                Edit
-              </Button>
-            </TableCell>
+    <div>
+      <div className="flex justify-end py-8">
+        <Button onClick={() => ""} className="capitalize w-28" type="submit">
+          {"add new"}
+        </Button>
+      </div>
+      <Table>
+        <TableCaption>A list of your orchards.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Name</TableHead>
+            <TableHead>Size</TableHead>
+            <TableHead>Olive trees</TableHead>
+            <TableHead className="text-right">Position</TableHead>
+            <TableHead></TableHead>
+            <TableHead></TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {orchards?.map((orchard) => (
+            <TableRow key={orchard.id}>
+              <TableCell className="font-medium">{orchard.name}</TableCell>
+              <TableCell>{orchard.size}</TableCell>
+              <TableCell>{orchard.trees}</TableCell>
+              <TableCell className="text-right">{orchard.place}</TableCell>
+              <TableCell className="text-right">
+                <Button
+                  onClick={async () => await mutate(orchard?.id)}
+                  size={"default"}
+                >
+                  Delete
+                </Button>
+              </TableCell>
+              <TableCell className="text-right">
+                <Button
+                  onClick={() => router.push(`orchards/${orchard?.id}`)}
+                  size={"icon"}
+                >
+                  Edit
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell className="text-right">$2,500.00</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
   );
 };
 

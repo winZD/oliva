@@ -20,7 +20,7 @@ const PrunningAndHarvestingCarData = ({ data }: { data: any[] }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle> Prunning And Harvesting</CardTitle>
+        <CardTitle> Total harvests kg</CardTitle>
         <CardDescription> Prunning And Harvesting Data</CardDescription>
       </CardHeader>
       <CardContent>

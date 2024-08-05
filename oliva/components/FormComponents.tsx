@@ -30,7 +30,7 @@ export const CustomFormField = ({
           <FormControl>
             <Input placeholder={name} {...field} />
           </FormControl>
-          <FormDescription>{description}</FormDescription>
+          {/*  <FormDescription>{description}</FormDescription> */}
           <FormMessage />
         </FormItem>
       )}

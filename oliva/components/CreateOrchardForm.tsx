@@ -70,33 +70,43 @@ const CreateOrchardForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <CustomFormField
-          name={"name"}
-          control={form.control}
-          description="This is your orchard name."
-        />
-        <CustomFormField
-          name={"place"}
-          control={form.control}
-          description="This is your orchard position."
-        />
-        <CustomFormField
-          name={"size"}
-          control={form.control}
-          description="This is your orchard size."
-        />
-        <CustomFormField
-          name={"trees"}
-          control={form.control}
-          description="This is number of your orchard trees."
-        />
-        <CustomFormField
-          name={"note"}
-          control={form.control}
-          description="Write some note."
-        />
-        <Button type="submit">Submit</Button>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="bg-muted p-8 rounded"
+      >
+        <h2 className="capitalize font-semibold text-4xl mb-6">add orchard</h2>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-start">
+          <CustomFormField
+            name={"name"}
+            control={form.control}
+            /* description="This is your orchard name." */
+          />
+          <CustomFormField
+            name={"place"}
+            control={form.control}
+            /* description="This is your orchard position." */
+          />
+          <CustomFormField
+            name={"size"}
+            control={form.control}
+            /*  description="This is your orchard size." */
+          />
+          <CustomFormField
+            name={"trees"}
+            control={form.control}
+            /*   description="This is number of your orchard trees." */
+          />
+          <CustomFormField
+            name={"note"}
+            control={form.control}
+            /*  description="Write some note." */
+          />
+        </div>
+        <div className="flex justify-end py-8">
+          <Button className="capitalize w-28" type="submit">
+            {isPending ? "loading..." : "add"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

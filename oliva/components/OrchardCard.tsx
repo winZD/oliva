@@ -14,6 +14,7 @@ import { Cell, Label, Pie, PieChart } from "recharts";
 import { TrendingUp } from "lucide-react";
 import { OrchardType } from "@/utils/models/orchardModel";
 import { barColors } from "@/utils/chartColors";
+import { Button } from "./ui/button";
 
 const OrchardCard = ({ data }: { data: OrchardType[] }) => {
   const totalTrees = React.useMemo(() => {
@@ -21,9 +22,9 @@ const OrchardCard = ({ data }: { data: OrchardType[] }) => {
   }, []);
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col h-full">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Orchards</CardTitle>
+        <CardTitle>TOTAL Orchards</CardTitle>
         <CardDescription>Orchards by number of trees</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -87,6 +88,7 @@ const OrchardCard = ({ data }: { data: OrchardType[] }) => {
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last 6 months
         </div>
+        <Button className="capitalize ">detailss</Button>
       </CardFooter>
     </Card>
   );
