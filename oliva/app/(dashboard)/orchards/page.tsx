@@ -27,14 +27,12 @@ const OrchardsPage = async () => {
       <div>
         <StatsDataContainer />
         <h1 className="text-2xl">ORCHARDS</h1>
-        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
           {/* <div className="col-span-2">
           <FertilizerCard />
         </div> */}
 
-          <div className="col-span-3 lg:col-span-6">
-            <OrchardChartContainer />
-          </div>
+          <OrchardChartContainer />
 
           {/* <div className="col-span-3  lg:col-span-2">
             <PrunningAndHarvestingCarData data={pruneHarvestData} />
