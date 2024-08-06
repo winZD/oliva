@@ -1,5 +1,7 @@
 import FertilizerCard from "@/components/FertilizerCard";
 import HarvestCard from "@/components/HarvestCard";
+import HarvestChartContainer from "@/components/HarvestChartContainer";
+import IncomeExpenseContainer from "@/components/IncomeExpenseChartContainer";
 import OrchardCard from "@/components/OrchardCard";
 import OrchardChartContainer from "@/components/OrchardChartContainer";
 import PrunningAndHarvestingCarData from "@/components/PrunningAndHarvestingCard";
@@ -27,12 +29,15 @@ const OrchardsPage = async () => {
       <div>
         <StatsDataContainer />
         <h1 className="text-2xl">ORCHARDS</h1>
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+        <div className="grid grid-cols-1  md:grid-cols-2 gap-4 lg:grid-cols-3">
           {/* <div className="col-span-2">
           <FertilizerCard />
         </div> */}
 
           <OrchardChartContainer />
+
+          <HarvestChartContainer />
+          <IncomeExpenseContainer />
 
           {/* <div className="col-span-3  lg:col-span-2">
             <PrunningAndHarvestingCarData data={pruneHarvestData} />
@@ -40,7 +45,7 @@ const OrchardsPage = async () => {
           <div className="col-span-3  lg:col-span-2">
             <HarvestCard />
           </div> */}
-          <div className="md:hidden lg:block col-span-6">
+          <div className="md:hidden lg:inline lg:col-span-3">
             <CustomTable /* data={data}  */ />
           </div>
         </div>
