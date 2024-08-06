@@ -14,13 +14,23 @@ datasource db {
 }
 
 model Orchard {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   clerkId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   name      String
   place     String
   size      String
   trees     Int
   note      String
+  expenses  Expense[]
+}
+
+model Expense {
+  id        String   @id @default(uuid())
+  clerkId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orchardId String // Foreign key to link Expense to Orchard
+  orchard   Orchard? @relation(fields: [orchardId], references: [id])
 }
