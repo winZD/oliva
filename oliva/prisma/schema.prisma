@@ -33,6 +33,6 @@ model Expense {
   updatedAt DateTime @updatedAt
   orchardId String // Foreign key to link Expense to Orchard
   orchard   Orchard? @relation(fields: [orchardId], references: [id])
-  expense   Int
+  expense   Decimal
   note      String
 }
