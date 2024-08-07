@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 const OrchardCard = ({ data }: { data: OrchardType[] }) => {
   const totalTrees = React.useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.trees, 0);
-  }, []);
+  }, [data]);
 
   return (
     <Card className="flex flex-col h-full">
