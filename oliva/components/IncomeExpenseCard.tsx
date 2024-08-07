@@ -38,7 +38,7 @@ const IncomeExpenseCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Income Chart - Multiple</CardTitle>
+        <CardTitle>Income/Expense Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
