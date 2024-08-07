@@ -16,25 +16,29 @@ import {
 } from "@/components/ui/chart";
 
 const HarvestCard = () => {
+  // Updated chartData to represent years instead of months
   const chartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
+    { year: "2023", desktop: 186 },
+    { year: "2022", desktop: 305 },
+    { year: "2021", desktop: 237 },
+    { year: "2020", desktop: 73 },
+    { year: "2019", desktop: 0 },
+    { year: "2018", desktop: 0 },
   ];
+
   const chartConfig = {
     desktop: {
       label: "Desktop",
-      color: "hsl(var(--chart-1))",
+      color: "green",
     },
   } satisfies ChartConfig;
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Harvest Chart - Linear</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        {/* Updated description to reflect years */}
+        <CardDescription>2023 - 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -48,11 +52,11 @@ const HarvestCard = () => {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="year"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => value.slice(0, 4)} // Adjusted to slice the first 4 characters for year
             />
             <ChartTooltip
               cursor={false}
@@ -73,7 +77,8 @@ const HarvestCard = () => {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total visitors for the last 6 months (now spanning across
+          years)
         </div>
       </CardFooter>
     </Card>
