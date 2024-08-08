@@ -14,8 +14,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { HarvestType } from "@/utils/models/harvestModel";
 
-const HarvestCard = () => {
+const HarvestCard = ({ data }: { data: HarvestType[] }) => {
   // Updated chartData to represent years instead of months
   const chartData = [
     { year: "2023", desktop: 186 },
@@ -25,7 +26,7 @@ const HarvestCard = () => {
     { year: "2019", desktop: 0 },
     { year: "2018", desktop: 0 },
   ];
-
+  console.log(data);
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -81,6 +82,9 @@ const HarvestCard = () => {
           years)
         </div>
       </CardFooter>
+      {data.map((harvest) => (
+        <p>{harvest.id}</p>
+      ))}
     </Card>
   );
 };

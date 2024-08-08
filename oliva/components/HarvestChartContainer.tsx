@@ -2,13 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 import HarvestCard from "./HarvestCard";
+import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 
 const HarvestChartContainer = () => {
   const { data, isPending } = useQuery({
     queryKey: ["harvests"],
-    queryFn: () => "",
+    queryFn: () => getHarvestsAction(),
   });
-  return <HarvestCard />;
+  return <HarvestCard data={data ? data : []} />;
 };
 
 export default HarvestChartContainer;
