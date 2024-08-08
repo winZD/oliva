@@ -1,8 +1,9 @@
 "use client";
-import { getOrchardsAction } from "@/utils/orchardActions/actions";
+
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import StatsDataCard from "./StatsDataCard";
+import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 
 const StatsDataContainer = () => {
   const { data, isPending } = useQuery({

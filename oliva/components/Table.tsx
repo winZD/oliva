@@ -11,11 +11,12 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+
+import { useRouter } from "next/navigation";
 import {
   deleteOrchardAction,
   getOrchardsAction,
-} from "@/utils/orchardActions/actions";
-import { useRouter } from "next/navigation";
+} from "@/utils/actions/orchardActions/actions";
 
 const CustomTable = () => {
   const router = useRouter();

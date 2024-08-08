@@ -1,5 +1,6 @@
 import EditOrchardForm from "@/components/EditOrchardForm";
-import { getOrchardByIdAction } from "@/utils/orchardActions/actions";
+import { getOrchardByIdAction } from "@/utils/actions/orchardActions/actions";
+
 import {
   dehydrate,
   HydrationBoundary,

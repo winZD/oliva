@@ -1,8 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import prisma from "../db";
-import { CreateAndEditOrchardType, OrchardType } from "../models/orchardModel";
+import prisma from "../../db";
+import {
+  CreateAndEditOrchardType,
+  OrchardType,
+} from "../../models/orchardModel";
 import { createAndEditOrchardFormSchema } from "./validations";
 
 export const createOrchardAction = async (
