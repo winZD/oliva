@@ -36,3 +36,11 @@ model Expense {
   expense   Decimal
   note      String
 }
+
+model Harvest {
+  id             String   @id @default(uuid())
+  year           DateTime
+  quantity       Float
+  position       String
+  oil_percentage Float
+}
