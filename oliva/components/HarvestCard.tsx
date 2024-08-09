@@ -87,7 +87,10 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
                 return date.toString();
               }}
             />
-            <ChartTooltip cursor={false} content={<s />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
             <Line
               dataKey="quantity"
               type="linear"
