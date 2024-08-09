@@ -1,5 +1,13 @@
 import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  Tooltip,
+  TooltipProps,
+  XAxis,
+  YAxis,
+} from "recharts";
 import {
   Card,
   CardContent,
@@ -15,41 +23,58 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { HarvestType } from "@/utils/models/harvestModel";
+import {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
 const HarvestCard = ({ data }: { data: HarvestType[] }) => {
   // Updated chartData to represent years instead of months
-  const chartData = [
-    { year: "2023", desktop: 186 },
-    { year: "2022", desktop: 305 },
-    { year: "2021", desktop: 237 },
-    { year: "2020", desktop: 73 },
-    { year: "2019", desktop: 0 },
-    { year: "2018", desktop: 0 },
-  ];
-  console.log(data);
+
   const chartConfig = {
-    desktop: {
-      label: "Desktop",
+    quantity: {
+      label: "Quantity",
       color: "green",
     },
   } satisfies ChartConfig;
+
+  const CustomTooltip = ({
+    active,
+    payload,
+    label,
+  }: TooltipProps<ValueType, NameType>) => {
+    console.log(label);
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="custom-tooltip"
+          style={{
+            backgroundColor: "#ffff",
+            padding: "5px",
+            border: "1px solid #cccc",
+          }}
+        >
+          <p className="label">{`${label} ${payload[0].value}`}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Harvest Chart - Linear</CardTitle>
         {/* Updated description to reflect years */}
-        <CardDescription>2023 - 2024</CardDescription>
+        <CardDescription>2014- 2024</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <LineChart
             accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
+            data={data}
+            margin={{ left: 12, right: 12 }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
@@ -57,17 +82,17 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 4)} // Adjusted to slice the first 4 characters for year
+              tickFormatter={(value) => {
+                const date = new Date(value).getFullYear();
+                return date.toString();
+              }}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<s />} />
             <Line
-              dataKey="desktop"
+              dataKey="quantity"
               type="linear"
-              stroke="var(--color-desktop)"
               strokeWidth={2}
+              stroke="var(--color-quantity)"
               dot={false}
             />
           </LineChart>
@@ -82,9 +107,6 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
           years)
         </div>
       </CardFooter>
-      {data.map((harvest) => (
-        <p>{harvest.id}</p>
-      ))}
     </Card>
   );
 };
