@@ -27,10 +27,20 @@ import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const HarvestCard = ({ data }: { data: HarvestType[] }) => {
-  // Updated chartData to represent years instead of months
-
   const chartConfig = {
     quantity: {
       label: "Quantity",
@@ -106,8 +116,7 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months (now spanning across
-          years)
+          Showing total harvests (now spanning across years)
         </div>
       </CardFooter>
     </Card>
