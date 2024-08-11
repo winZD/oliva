@@ -27,7 +27,7 @@ const HarvestChartContainer = () => {
   return (
     <>
       <HarvestCard data={data ? data : []} />
-      {pathname !== "/orchards" && <HarvestTable data={data ? data : []} />}
+      {/* {pathname !== "/orchards" && <HarvestTable data={data ? data : []} />} */}
     </>
   );
 };

@@ -12,9 +12,15 @@ import {
   TableRow,
 } from "./ui/table";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 
-const HarvestTable = ({ data }: { data: HarvestType[] }) => {
+const HarvestTable = () => {
   const router = useRouter();
+  const { data, isPending } = useQuery({
+    queryKey: ["harvests"],
+    queryFn: () => getHarvestsAction(),
+  });
   return (
     <div>
       <Button onClick={() => router.push(`add-harvest`)} size={"default"}>

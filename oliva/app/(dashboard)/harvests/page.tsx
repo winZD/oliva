@@ -1,4 +1,5 @@
 import HarvestChartContainer from "@/components/HarvestChartContainer";
+import HarvestTable from "@/components/HarvestTable";
 import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 import {
   dehydrate,
@@ -16,10 +17,7 @@ const Harvests = async () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <HarvestChartContainer />
-      <div className="grid">
-        <div>big line chart </div>
-        <div>harvests table</div>
-      </div>
+      <HarvestTable />
     </HydrationBoundary>
   );
 };
