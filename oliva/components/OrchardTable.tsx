@@ -18,7 +18,7 @@ import {
   getOrchardsAction,
 } from "@/utils/actions/orchardActions/actions";
 
-const CustomTable = () => {
+const OrchardTable = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
@@ -102,4 +102,4 @@ const CustomTable = () => {
   );
 };
 
-export default CustomTable;
+export default OrchardTable;

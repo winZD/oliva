@@ -6,8 +6,8 @@ import OrchardCard from "@/components/OrchardCard";
 import OrchardChartContainer from "@/components/OrchardChartContainer";
 import PrunningAndHarvestingCarData from "@/components/PrunningAndHarvestingCard";
 import StatsDataContainer from "@/components/StatsDataContainer";
+import OrchardTable from "@/components/OrchardTable";
 
-import CustomTable from "@/components/Table";
 import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 import { orchards, pruneHarvestData } from "@/utils/mockData";
 
@@ -16,7 +16,6 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import React from "react";
 
 const OrchardsPage = async () => {
   const queryClient = new QueryClient();
@@ -39,7 +38,7 @@ const OrchardsPage = async () => {
           </div>
           */}
           <div className="md:hidden lg:inline lg:col-span-3">
-            <CustomTable /* data={data}  */ />
+            <OrchardTable /* data={data}  */ />
           </div>
         </div>
       </div>
