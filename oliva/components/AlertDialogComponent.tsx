@@ -1,29 +1,31 @@
 import {
+  AlertDialogHeader,
+  AlertDialogFooter,
   AlertDialog,
-  AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogCancel,
   AlertDialogAction,
-} from "@radix-ui/react-alert-dialog";
-
-import { AlertDialogHeader, AlertDialogFooter } from "./ui/alert-dialog";
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 
 type AlertDialogProps = {
+  id: string;
   openDialogBtnName: string;
   dialogTitle: string;
   dialogDescription: string;
   cancelBtnName: string;
   continueBtnName: string;
+  continue: ((id: string) => void) | (() => void);
 };
 
 const AlertDialogComponent = ({ props }: { props: AlertDialogProps }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">{props.openDialogBtnName}</Button>
+        <Button variant="destructive">{props.openDialogBtnName}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -34,7 +36,9 @@ const AlertDialogComponent = ({ props }: { props: AlertDialogProps }) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>{props.cancelBtnName}</AlertDialogCancel>
-          <AlertDialogAction>{props.continueBtnName}</AlertDialogAction>
+          <AlertDialogAction onClick={() => props.continue(props?.id)}>
+            {props.continueBtnName}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

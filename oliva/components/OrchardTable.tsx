@@ -17,8 +17,11 @@ import {
   deleteOrchardAction,
   getOrchardsAction,
 } from "@/utils/actions/orchardActions/actions";
+import AlertDialogComponent from "./AlertDialogComponent";
+import { useState } from "react";
 
 const OrchardTable = () => {
+  const [open, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
@@ -73,12 +76,24 @@ const OrchardTable = () => {
               <TableCell>{orchard.trees}</TableCell>
               <TableCell className="text-right">{orchard.place}</TableCell>
               <TableCell className="text-right">
-                <Button
+                {/*  <Button
                   onClick={async () => await mutate(orchard?.id)}
                   size={"default"}
                 >
                   Delete
-                </Button>
+                </Button> */}
+                <AlertDialogComponent
+                  props={{
+                    id: orchard?.id,
+                    openDialogBtnName: "Delete",
+                    dialogTitle: "Are you absolutely sure?",
+                    dialogDescription:
+                      "This action cannot be undone. This will permanently delete your orchard and remove your data from our servers.",
+                    cancelBtnName: "Cancel",
+                    continueBtnName: "Continue",
+                    continue: mutate,
+                  }}
+                />
               </TableCell>
               <TableCell className="text-right">
                 <Button
