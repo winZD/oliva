@@ -5,7 +5,8 @@
 
 */
 -- AlterTable
-ALTER TABLE "Orchard" ALTER COLUMN "harvestId" SET NOT NULL;
+ALTER TABLE "Orchard" ADD COLUMN "harvestId" TEXT;
+
 
 -- AddForeignKey
 ALTER TABLE "Orchard" ADD CONSTRAINT "Orchard_harvestId_fkey" FOREIGN KEY ("harvestId") REFERENCES "Harvest"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
