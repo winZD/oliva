@@ -38,6 +38,7 @@ const CreateHarvestForm = () => {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
           <CustomFormField name={"name"} control={form.control} />
           <DatePicker name="date" control={form.control} />
+          {/* <CustomFormField/> */}
         </div>
         <Button type="submit">Add</Button>
       </form>

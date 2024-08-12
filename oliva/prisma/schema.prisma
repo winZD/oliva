@@ -23,6 +23,8 @@ model Orchard {
   size      String
   trees     Int
   note      String
+  harvestId String
+  harvest   Harvest?  @relation(fields: [harvestId], references: [id])
   expenses  Expense[]
 }
 
@@ -38,9 +40,10 @@ model Expense {
 }
 
 model Harvest {
-  id             String   @id @default(uuid())
+  id             String    @id @default(uuid())
   year           DateTime
   quantity       Float
   position       String
   oil_percentage Float
+  orchards       Orchard[]
 }
