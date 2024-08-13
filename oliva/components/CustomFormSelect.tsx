@@ -13,12 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
+import { OrchardType } from "@/utils/models/orchardModel";
 
 type CustomFormSelectProps = {
   name: string;
   placeholder: string;
   control: Control<any>;
-  items: string[];
+  items: OrchardType[]; //TODO: custom to be generic
   labelText?: string;
 };
 
@@ -44,8 +45,8 @@ const CustomFormSelect = ({
                 </SelectTrigger>
                 <SelectContent>
                   {items.map((item) => (
-                    <SelectItem key={item} value={item}>
-                      {item}
+                    <SelectItem key={item.id} value={item.name}>
+                      {item.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

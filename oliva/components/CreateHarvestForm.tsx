@@ -6,6 +6,9 @@ import { z } from "zod";
 import { Form } from "./ui/form";
 import DatePicker from "./DatePicker";
 import { Button } from "./ui/button";
+import CustomFormSelect from "./CustomFormSelect";
+import { useQuery } from "@tanstack/react-query";
+import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 
 const CreateHarvestForm = () => {
   const formSchema = z.object({
@@ -14,12 +17,16 @@ const CreateHarvestForm = () => {
     }),
     date: z.date().transform((date) => date.toISOString()),
   });
-
+  const { data, isPending } = useQuery({
+    queryKey: ["orchards"],
+    queryFn: () => getOrchardsAction(),
+  });
   const form = useForm<any>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       date: null,
+      orchard: "",
     },
   });
   function onSubmit(values: any) {
@@ -37,8 +44,14 @@ const CreateHarvestForm = () => {
         <h2 className="capitalize font-semibold text-4xl mb-6">add harvest</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
           <CustomFormField name={"name"} control={form.control} />
-          <DatePicker name="date" control={form.control} />
-          {/* <CustomFormField/> */}
+          <DatePicker name="date" control={form.control} label="date" />
+          <CustomFormSelect
+            name="orchard"
+            placeholder="choose orchard"
+            control={form.control}
+            labelText="orchards"
+            items={data! || []}
+          />
         </div>
         <Button type="submit">Add</Button>
       </form>

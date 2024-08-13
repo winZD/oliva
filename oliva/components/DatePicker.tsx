@@ -17,15 +17,17 @@ import {
 type CustomFormDateFieldProps = {
   name: string;
   control: Control<any>;
+  label?: string;
 };
 
-const DatePicker = ({ name, control }: CustomFormDateFieldProps) => {
+const DatePicker = ({ name, control, label }: CustomFormDateFieldProps) => {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
+          <FormLabel className="capitalize">{label || "date"}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <Button
