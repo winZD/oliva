@@ -50,7 +50,7 @@ const CreateHarvestForm = () => {
             placeholder="choose orchard"
             control={form.control}
             labelText="orchards"
-            items={data! || []}
+            items={data || []}
           />
         </div>
         <Button type="submit">Add</Button>
