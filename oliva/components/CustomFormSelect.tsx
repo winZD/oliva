@@ -13,23 +13,22 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { OrchardType } from "@/utils/models/orchardModel";
 
-type CustomFormSelectProps = {
+type CustomFormSelectProps<T> = {
   name: string;
   placeholder: string;
   control: Control<any>;
-  items: OrchardType[]; //TODO: custom to be generic
+  items: T[];
   labelText?: string;
 };
 
-const CustomFormSelect = ({
+const CustomFormSelect = <T extends { id: string; name: string }>({
   name,
   placeholder,
   control,
   items,
   labelText,
-}: CustomFormSelectProps) => {
+}: CustomFormSelectProps<T>) => {
   return (
     <FormField
       control={control}
