@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { createAndEditOrchardFormSchema } from "../actions/orchardActions/validations";
+
+import { createAndEditHarvestFormSchema } from "../actions/harvestActions/validations";
 
 export type HarvestType = {
   id: string;
@@ -11,5 +12,5 @@ export type HarvestType = {
 };
 
 export type CreateAndEditHarvestType = z.infer<
-  typeof createAndEditOrchardFormSchema
+  typeof createAndEditHarvestFormSchema
 >;

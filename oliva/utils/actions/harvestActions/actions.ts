@@ -27,7 +27,14 @@ export const createHarvestAction = async (
   try {
     createAndEditHarvestFormSchema.parse(values);
     const harvest: HarvestType = await prisma.harvest.create({
-      data: { clerkId: "1234", ...values },
+      data: {
+        clerkId: "1234",
+        oil_percentage: 3,
+        position: "",
+        quantity: 6,
+        year: values.date, //TODO: fix this,a dd everything to ...values
+        /* ...values, */
+      },
     });
     return harvest;
   } catch (error) {
