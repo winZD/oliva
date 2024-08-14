@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createAndEditOrchardFormSchema } from "../orchardActions/validations";
+import { createAndEditOrchardFormSchema } from "../actions/orchardActions/validations";
 
 export type OrchardType = {
   id: string;
