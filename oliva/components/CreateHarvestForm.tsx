@@ -52,6 +52,8 @@ const CreateHarvestForm = () => {
             labelText="orchards"
             items={data || []}
           />
+          <CustomFormField name={"randman"} control={form.control} />
+          <CustomFormField name={"quantity"} control={form.control} />
         </div>
         <Button type="submit">Add</Button>
       </form>

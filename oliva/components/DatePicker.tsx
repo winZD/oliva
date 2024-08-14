@@ -56,6 +56,7 @@ const DatePicker = ({ name, control, label }: CustomFormDateFieldProps) => {
               </FormControl>
             </PopoverContent>
           </Popover>
+          <FormMessage />
         </FormItem>
       )}
     />

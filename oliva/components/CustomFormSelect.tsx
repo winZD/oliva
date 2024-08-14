@@ -44,14 +44,13 @@ const CustomFormSelect = <T extends { id: string; name: string }>({
                 </SelectTrigger>
                 <SelectContent>
                   {items.map((item) => (
-                    <SelectItem key={item.id} value={item.name}>
+                    <SelectItem key={item.id} value={item.id}>
                       {item.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </FormControl>
-            <FormMessage />
           </FormItem>
         );
       }}
