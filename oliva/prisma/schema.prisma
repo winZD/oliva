@@ -23,8 +23,7 @@ model Orchard {
   size      String
   trees     Int
   note      String
-  harvestId String? // Allow null to create Orchards without a Harvest initially
-  harvest   Harvest?  @relation(fields: [harvestId], references: [id])
+  harvests  Harvest[]
   expenses  Expense[]
 }
 
@@ -40,13 +39,14 @@ model Expense {
 }
 
 model Harvest {
-  id             String    @id @default(uuid())
+  id             String   @id @default(uuid())
   clerkId        String
   year           DateTime
   quantity       Float
   position       String
   oil_percentage Float
-  orchards       Orchard[]
+  orchardId      String? // Allow null to create Orchards without a Harvest initially
+  orchard        Orchard? @relation(fields: [orchardId], references: [id])
 }
 
 //model HarvestsOnOrchards {
