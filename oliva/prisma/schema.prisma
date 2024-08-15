@@ -46,7 +46,7 @@ model Harvest {
   quantity       Float
   position       String
   oil_percentage Float
-  orchards       Orchard[] // Many-to-many relationship
+  orchards       Orchard[]
 }
 
 //model HarvestsOnOrchards {
