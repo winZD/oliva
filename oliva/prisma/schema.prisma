@@ -24,7 +24,7 @@ model Orchard {
   trees     Int
   note      String
   harvestId String? // Allow null to create Orchards without a Harvest initially
-  harvests  Harvest?  @relation(fields: [harvestId], references: [id])
+  harvest   Harvest?  @relation(fields: [harvestId], references: [id])
   expenses  Expense[]
 }
 
