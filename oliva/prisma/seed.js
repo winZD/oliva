@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 async function main() {
   const harvests = data.map((harvest) => ({
     ...harvest,
+    clerkId: "1234567890",
   }));
 
   for (const harvest of harvests) {
