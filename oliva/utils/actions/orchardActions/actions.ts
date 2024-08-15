@@ -15,7 +15,11 @@ export const createOrchardAction = async (
   try {
     createAndEditOrchardFormSchema.parse(values);
     const orchard: OrchardType = await prisma.orchard.create({
-      data: { clerkId: "1234", ...values, trees: Number(values.trees) },
+      data: {
+        clerkId: "1234",
+        ...values,
+        trees: Number(values.trees),
+      },
     });
     return orchard;
   } catch (error) {

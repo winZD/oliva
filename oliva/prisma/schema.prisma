@@ -23,9 +23,8 @@ model Orchard {
   size      String
   trees     Int
   note      String
-  harvestId String?
-  harvest   Harvest?  @relation(fields: [harvestId], references: [id])
-  //harvests  HarvestsOnOrchards[]
+  harvestId String? // Allow null to create Orchards without a Harvest initially
+  harvests  Harvest?  @relation(fields: [harvestId], references: [id])
   expenses  Expense[]
 }
 
@@ -47,8 +46,7 @@ model Harvest {
   quantity       Float
   position       String
   oil_percentage Float
-  orchards       Orchard[]
-  //orchards       HarvestsOnOrchards[]
+  orchards       Orchard[] // Many-to-many relationship
 }
 
 //model HarvestsOnOrchards {
