@@ -51,6 +51,7 @@ const CustomFormSelect = <T extends { id: string; name: string }>({
                 </SelectContent>
               </Select>
             </FormControl>
+            <FormMessage />
           </FormItem>
         );
       }}

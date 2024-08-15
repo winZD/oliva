@@ -9,32 +9,29 @@ import { Button } from "./ui/button";
 import CustomFormSelect from "./CustomFormSelect";
 import { useQuery } from "@tanstack/react-query";
 import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
+import { createAndEditHarvestFormSchema } from "@/utils/actions/harvestActions/validations";
+import { CreateAndEditHarvestType } from "@/utils/models/harvestModel";
 
 const CreateHarvestForm = () => {
-  const formSchema = z.object({
-    name: z.string().min(2, {
-      message: "Name must be at least 2 characters.",
-    }),
-    date: z.date().transform((date) => date.toISOString()),
-  });
   const { data, isPending } = useQuery({
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
   });
-  const form = useForm<any>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreateAndEditHarvestType>({
+    resolver: zodResolver(createAndEditHarvestFormSchema),
     defaultValues: {
-      name: "",
-      date: null,
-      orchard: "",
+      position: "",
+      year: "",
+      oil_percentage: 0,
+      quantity: 0,
     },
   });
-  function onSubmit(values: any) {
+  const onSubmit = (values: CreateAndEditHarvestType) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
     console.log(values);
-  }
+  };
   return (
     <Form {...form}>
       <form
@@ -43,19 +40,18 @@ const CreateHarvestForm = () => {
       >
         <h2 className="capitalize font-semibold text-4xl mb-6">add harvest</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
-          <CustomFormField name={"name"} control={form.control} />
-          <DatePicker name="date" control={form.control} label="date" />
+          <DatePicker name="year" control={form.control} label="year" />
           <CustomFormSelect
-            name="orchard"
+            name="position"
             placeholder="choose orchard"
             control={form.control}
             labelText="orchards"
             items={data || []}
           />
-          <CustomFormField name={"randman"} control={form.control} />
+          <CustomFormField name={"oil_percentage"} control={form.control} />
           <CustomFormField name={"quantity"} control={form.control} />
+          <Button type="submit">Add</Button>
         </div>
-        <Button type="submit">Add</Button>
       </form>
     </Form>
   );
