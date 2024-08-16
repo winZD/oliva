@@ -10,7 +10,8 @@ export type HarvestType = {
   quantity: number;
   position: string;
   oil_percentage: number;
-  orchardId: string | null;
+  orchardId?: string | null;
+  orchard?: OrchardType | null;
 };
 
 export type CreateAndEditHarvestType = z.infer<

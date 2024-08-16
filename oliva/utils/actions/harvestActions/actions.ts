@@ -11,6 +11,7 @@ export const getHarvestsAction = async (): Promise<HarvestType[] | null> => {
   try {
     const harvests: HarvestType[] = await prisma.harvest.findMany({
       orderBy: { year: "desc" },
+      include: { orchard: true },
     });
 
     return harvests;

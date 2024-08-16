@@ -41,7 +41,9 @@ const HarvestTable = () => {
         <TableBody>
           {data?.map((harvest) => (
             <TableRow key={harvest.id}>
-              <TableCell className="font-medium">{harvest.position}</TableCell>
+              <TableCell className="font-medium">
+                {harvest?.orchard?.name}
+              </TableCell>
               <TableCell>{harvest.year.getFullYear()}</TableCell>
               <TableCell>{harvest.oil_percentage}</TableCell>
               <TableCell className="text-right">{harvest.quantity}</TableCell>
