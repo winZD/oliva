@@ -7,30 +7,51 @@ import { Form } from "./ui/form";
 import DatePicker from "./DatePicker";
 import { Button } from "./ui/button";
 import CustomFormSelect from "./CustomFormSelect";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 import { createAndEditHarvestFormSchema } from "@/utils/actions/harvestActions/validations";
 import { CreateAndEditHarvestType } from "@/utils/models/harvestModel";
+import { createHarvestAction } from "@/utils/actions/harvestActions/actions";
+import { useRouter } from "next/navigation";
 
 const CreateHarvestForm = () => {
   const { data, isPending } = useQuery({
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
   });
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const form = useForm<CreateAndEditHarvestType>({
     resolver: zodResolver(createAndEditHarvestFormSchema),
     defaultValues: {
-      position: "",
-      year: "",
+      position: "92866148-9a11-401a-b2f2-847873864243",
+      year: new Date(),
       oil_percentage: 0,
       quantity: 0,
+      orchardId: "",
     },
   });
+
+  const { isPending: mutationIsPending, mutate } = useMutation({
+    mutationFn: (values: CreateAndEditHarvestType) =>
+      createHarvestAction({ ...values }),
+    onSuccess: (data) => {
+      if (!data) {
+        /*   toast({ description: "There was an error!" }); */
+        return;
+      }
+      /* toast({ description: "Job created!" }); */
+      queryClient.invalidateQueries({ queryKey: ["harvests"] });
+
+      router.push("/harvests");
+    },
+  });
+
   const onSubmit = (values: CreateAndEditHarvestType) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-
-    console.log(values);
+    mutate(values);
+    console.log({ ...values });
   };
   return (
     <Form {...form}>
@@ -42,7 +63,7 @@ const CreateHarvestForm = () => {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
           <DatePicker name="year" control={form.control} label="year" />
           <CustomFormSelect
-            name="position"
+            name="orchardId"
             placeholder="choose orchard"
             control={form.control}
             labelText="orchards"

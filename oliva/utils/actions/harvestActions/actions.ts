@@ -28,7 +28,7 @@ export const createHarvestAction = async (
     createAndEditHarvestFormSchema.parse(values);
     const harvest: HarvestType = await prisma.harvest.create({
       data: {
-        clerkId: "1234",
+        clerkId: "1234567890",
         ...values,
       },
     });

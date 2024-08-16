@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { createAndEditHarvestFormSchema } from "../actions/harvestActions/validations";
+import { OrchardType } from "./orchardModel";
 
 export type HarvestType = {
   id: string;
@@ -9,6 +10,7 @@ export type HarvestType = {
   quantity: number;
   position: string;
   oil_percentage: number;
+  orchardId: string | null;
 };
 
 export type CreateAndEditHarvestType = z.infer<
