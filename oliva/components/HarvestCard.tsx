@@ -72,12 +72,40 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
     return null;
   };
 
+  const fromYearToYear = (data: HarvestType[]): string => {
+    const mappedYears = data.map((record) => record.year);
+
+    const fromYear = mappedYears[0].getUTCFullYear();
+    const toYear = mappedYears[mappedYears.length - 1].getUTCFullYear();
+    return `${fromYear || ""} - ${toYear || ""}`;
+  };
+
+  const calculateGrowthRate = (data: HarvestType[]) => {
+    const epsilon = 1e-9;
+    console.log(epsilon);
+    const adjustedData = data.map((item) => ({
+      ...item,
+      quantity: item.quantity === 0 ? epsilon : item.quantity,
+    }));
+    let growthRate = 0;
+    for (let i = 1; i < adjustedData.length; i++) {
+      const prevAvg = Number(adjustedData[i - 1].quantity);
+
+      const currAvg = Number(adjustedData[i].quantity);
+      growthRate += (currAvg - prevAvg) / prevAvg;
+    }
+    console.log(growthRate);
+    return growthRate.toFixed(1); // Return as percentage
+  };
+
+  console.log(calculateGrowthRate(data));
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Harvest Chart - Linear</CardTitle>
         {/* Updated description to reflect years */}
-        <CardDescription>2014- 2024</CardDescription>
+        <CardDescription>{fromYearToYear(data)}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
