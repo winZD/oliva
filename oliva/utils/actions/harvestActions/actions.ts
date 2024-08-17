@@ -21,6 +21,25 @@ export const getHarvestsAction = async (): Promise<HarvestType[] | null> => {
   }
 };
 
+export const getHarvestByIdAction = async (
+  id: string
+): Promise<HarvestType | null> => {
+  let harvest: HarvestType | null = null;
+  try {
+    harvest = await prisma.harvest.findUnique({
+      where: { id },
+      include: { orchard: true },
+    });
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+  if (!harvest) {
+    redirect("/harvests");
+  }
+  return harvest;
+};
+
 export const createHarvestAction = async (
   values: CreateAndEditHarvestType
 ): Promise<HarvestType | null> => {

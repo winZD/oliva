@@ -75,8 +75,8 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
   const fromYearToYear = (data: HarvestType[]): string => {
     const mappedYears = data.map((record) => record.year);
 
-    const fromYear = mappedYears[0].getUTCFullYear();
-    const toYear = mappedYears[mappedYears.length - 1].getUTCFullYear();
+    const fromYear = mappedYears[0]?.getUTCFullYear();
+    const toYear = mappedYears[mappedYears.length - 1]?.getUTCFullYear();
     return `${fromYear || ""} - ${toYear || ""}`;
   };
 
@@ -92,9 +92,9 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
       const prevAvg = Number(adjustedData[i - 1].quantity);
 
       const currAvg = Number(adjustedData[i].quantity);
-      growthRate += (currAvg - prevAvg) / prevAvg;
+      growthRate += ((currAvg - prevAvg) / prevAvg) * 100;
     }
-    console.log(growthRate);
+
     return growthRate.toFixed(1); // Return as percentage
   };
 
