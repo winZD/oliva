@@ -58,3 +58,20 @@ export const createHarvestAction = async (
     return null;
   }
 };
+
+export const updateHarvestAction = async (
+  id: string,
+  values: CreateAndEditHarvestType
+): Promise<HarvestType | null> => {
+  /*  const userId = authenticateAndRedirect(); */
+
+  try {
+    const harvest: HarvestType = await prisma.harvest.update({
+      where: { id },
+      data: { ...values },
+    });
+    return harvest;
+  } catch (error) {
+    return null;
+  }
+};

@@ -1,10 +1,13 @@
 "use client";
-import { getHarvestByIdAction } from "@/utils/actions/harvestActions/actions";
+import {
+  getHarvestByIdAction,
+  updateHarvestAction,
+} from "@/utils/actions/harvestActions/actions";
 import { createAndEditHarvestFormSchema } from "@/utils/actions/harvestActions/validations";
 import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 import { CreateAndEditHarvestType } from "@/utils/models/harvestModel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Form } from "./ui/form";
@@ -14,7 +17,7 @@ import { CustomFormField } from "./FormComponents";
 import { Button } from "./ui/button";
 
 const EditHarvestForm = ({ harvestId }: { harvestId: string }) => {
-  const { data: orchardData, isPending } = useQuery({
+  const { data: orchardData } = useQuery({
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
   });
@@ -35,10 +38,26 @@ const EditHarvestForm = ({ harvestId }: { harvestId: string }) => {
     },
   });
 
+  const { mutate } = useMutation({
+    mutationFn: (values: CreateAndEditHarvestType) =>
+      updateHarvestAction(harvestId, values),
+    onSuccess: (data) => {
+      if (!data) {
+        /*   toast({ description: "There was an error!" }); */
+        return;
+      }
+      /* toast({ description: "ORchard edited!" }); */
+      queryClient.invalidateQueries({ queryKey: ["harvests"] });
+      queryClient.invalidateQueries({ queryKey: ["harvest", harvestId] });
+
+      router.push("/harvests");
+    },
+  });
+
   const onSubmit = (values: CreateAndEditHarvestType) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    /*  mutate(values); */
+    mutate(values);
     console.log({ ...values });
   };
   return (
