@@ -33,7 +33,7 @@ const DatePicker = ({ name, control, label }: CustomFormDateFieldProps) => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[280px] justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal",
                   !field.value && "text-muted-foreground"
                 )}
               >
