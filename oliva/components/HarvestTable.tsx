@@ -69,12 +69,6 @@ const HarvestTable = () => {
               <TableCell>{harvest.oil_percentage}</TableCell>
               <TableCell className="text-right">{harvest.quantity}</TableCell>
               <TableCell className="text-right">
-                {/*  <Button
-                   onClick={async () => await mutate(orchard?.id)}
-                  size={"default"}
-                >
-                  Delete
-                </Button> */}
                 <AlertDialogComponent
                   props={{
                     id: harvest?.id,

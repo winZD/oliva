@@ -38,9 +38,11 @@ import {
   TableRow,
 } from "./ui/table";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 const HarvestCard = ({ data }: { data: HarvestType[] }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const chartConfig = {
     quantity: {
       label: "Quantity",
@@ -147,6 +149,11 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
           Showing total harvests (now spanning across years)
         </div>
       </CardFooter>
+      {pathname !== "/harvests" && (
+        <Button className="capitalize " onClick={() => router.push("harvests")}>
+          details
+        </Button>
+      )}
     </Card>
   );
 };
