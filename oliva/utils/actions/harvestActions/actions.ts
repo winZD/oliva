@@ -75,3 +75,18 @@ export const updateHarvestAction = async (
     return null;
   }
 };
+
+export const deleteHarvestAction = async (
+  id: string
+): Promise<HarvestType | null> => {
+  /* const userId = authenticateAndRedirect(); */
+
+  try {
+    const harvest: HarvestType = await prisma.harvest.delete({
+      where: { id /* , clerkId: userId  */ },
+    });
+    return harvest;
+  } catch (error) {
+    return null;
+  }
+};

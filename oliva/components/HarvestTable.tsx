@@ -12,14 +12,35 @@ import {
   TableRow,
 } from "./ui/table";
 import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  deleteHarvestAction,
+  getHarvestsAction,
+} from "@/utils/actions/harvestActions/actions";
+import AlertDialogComponent from "./AlertDialogComponent";
 
 const HarvestTable = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { data, isPending } = useQuery({
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
+  });
+  const { mutate, isPending: mutationIsPending } = useMutation({
+    mutationFn: (id: string) => deleteHarvestAction(id),
+    onSuccess: (data) => {
+      if (!data) {
+        /*  toast({
+          description: "there was an error",
+        }); */
+        return;
+      }
+      queryClient.invalidateQueries({ queryKey: ["harvests"] });
+      queryClient.invalidateQueries({ queryKey: ["harvest"] });
+
+      /*  toast({ description: "jorchard removed" }); */
+    },
   });
   return (
     <div>
@@ -48,12 +69,24 @@ const HarvestTable = () => {
               <TableCell>{harvest.oil_percentage}</TableCell>
               <TableCell className="text-right">{harvest.quantity}</TableCell>
               <TableCell className="text-right">
-                <Button
-                  /*  onClick={async () => await mutate(orchard?.id)} */
+                {/*  <Button
+                   onClick={async () => await mutate(orchard?.id)}
                   size={"default"}
                 >
                   Delete
-                </Button>
+                </Button> */}
+                <AlertDialogComponent
+                  props={{
+                    id: harvest?.id,
+                    openDialogBtnName: "Delete",
+                    dialogTitle: "Are you absolutely sure?",
+                    dialogDescription:
+                      "This action cannot be undone. This will permanently delete your harvest and remove your data from our servers.",
+                    cancelBtnName: "Cancel",
+                    continueBtnName: "Continue",
+                    continue: () => mutate(harvest?.id),
+                  }}
+                />
               </TableCell>
               <TableCell className="text-right">
                 <Button
