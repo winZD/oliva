@@ -24,11 +24,7 @@ const HarvestChartContainer = () => {
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
   });
-  return (
-    <>
-      <HarvestCard data={data ? data : []} />
-    </>
-  );
+  return <HarvestCard data={data ? data : []} />;
 };
 
 export default HarvestChartContainer;
