@@ -17,12 +17,17 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import AlertDialogComponent from "@/components/AlertDialogComponent";
+import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 
 const OrchardsPage = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["harvests"],
+    queryFn: () => getHarvestsAction(),
   });
 
   return (
