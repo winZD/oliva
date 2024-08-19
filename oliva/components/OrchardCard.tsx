@@ -22,7 +22,7 @@ const OrchardCard = ({ data }: { data: OrchardType[] }) => {
   }, [data]);
 
   return (
-    <Card className="flex flex-col h-full">
+    <Card className="flex flex-col h-full bg-muted">
       <CardHeader className="items-center pb-0">
         <CardTitle>TOTAL Orchards</CardTitle>
         <CardDescription>Orchards by number of trees</CardDescription>

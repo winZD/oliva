@@ -36,7 +36,7 @@ const IncomeExpenseCard = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card>
+    <Card className="bg-muted">
       <CardHeader>
         <CardTitle>Income/Expense Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>

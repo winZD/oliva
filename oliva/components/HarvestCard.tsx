@@ -103,7 +103,7 @@ const HarvestCard = ({ data }: { data: HarvestType[] }) => {
   console.log(calculateGrowthRate(data));
 
   return (
-    <Card>
+    <Card className="bg-muted">
       <CardHeader>
         <CardTitle>Harvest Chart - Linear</CardTitle>
         {/* Updated description to reflect years */}
