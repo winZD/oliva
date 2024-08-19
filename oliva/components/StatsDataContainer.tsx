@@ -7,7 +7,7 @@ import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 
 const StatsDataContainer = () => {
-  const { data } = useQuery({
+  const { data: orchardsData } = useQuery({
     queryKey: ["orchards"],
     queryFn: () => getOrchardsAction(),
   });
@@ -16,7 +16,7 @@ const StatsDataContainer = () => {
     queryFn: () => getHarvestsAction(),
   });
 
-  const avgOilPercentage = React.useMemo(() => {
+  const calculations = React.useMemo(() => {
     if (harvestData?.length) {
       const sumOil = harvestData.reduce(
         (acc, curr) => acc + curr.oil_percentage,
@@ -37,16 +37,17 @@ const StatsDataContainer = () => {
       return { oilAvg: 0, quantityAvg: 0 }; // Handle the case where harvestData is null or undefined
     }
   }, [harvestData]);
-  console.log(avgOilPercentage);
+
+  const sumTrees = React.useMemo(() => {
+    return orchardsData?.reduce((acc, curr) => acc + curr.trees, 0);
+  }, [orchardsData]);
+  console.log(calculations);
 
   return (
     <div className="grid md:grid-cols-2 gap-4 lg:grid-cols-3">
-      <StatsDataCard title="total trees" value={300} />
-      <StatsDataCard title="Oil %" value={avgOilPercentage.oilAvg} />
-      <StatsDataCard
-        title="Harvest in tons"
-        value={avgOilPercentage.quantityAvg}
-      />
+      <StatsDataCard title="total trees" value={sumTrees || 0} />
+      <StatsDataCard title="Oil %" value={calculations.oilAvg} />
+      <StatsDataCard title="Harvest in tons" value={calculations.quantityAvg} />
     </div>
   );
 };
