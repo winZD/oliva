@@ -19,7 +19,7 @@ import HarvestTable from "./HarvestTable";
 
 const HarvestChartContainer = () => {
   const pathname = usePathname();
-  console.log(pathname);
+
   const { data, isPending } = useQuery({
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),

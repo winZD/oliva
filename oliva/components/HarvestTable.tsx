@@ -43,10 +43,12 @@ const HarvestTable = () => {
     },
   });
   return (
-    <div>
-      <Button onClick={() => router.push(`add-harvest`)} size={"default"}>
-        Add
-      </Button>
+    <div className="py-4">
+      <div className="flex justify-end">
+        <Button onClick={() => router.push(`add-harvest`)} size={"default"}>
+          Add
+        </Button>
+      </div>
       <Table>
         <TableCaption>A list of your harvests.</TableCaption>
         <TableHeader>
