@@ -24,46 +24,29 @@ model Orchard {
   trees     Int
   note      String
   harvests  Harvest[]
-  expenses  Expense[]
-  incomes   Income[]
 }
 
 model Harvest {
-  id             String    @id @default(uuid())
-  clerkId        String
-  year           DateTime
-  quantity       Float
-  position       String
-  oil_percentage Float
-  orchardId      String? // Allow null to create Orchards without a Harvest initially
-  orchard        Orchard?  @relation(fields: [orchardId], references: [id])
-  expenses       Expense[]
-  incomes        Income[]
+  id                 String             @id @default(uuid())
+  clerkId            String
+  year               DateTime
+  quantity           Float
+  position           String
+  oil_percentage     Float
+  orchardId          String? // Allow null to create Orchards without a Harvest initially
+  orchard            Orchard?           @relation(fields: [orchardId], references: [id])
+  expensesAndIncomes ExpenseAndIncome[]
 }
 
-model Expense {
+model ExpenseAndIncome {
   id        String   @id @default(uuid())
   clerkId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  orchardId String // Foreign key to link Expense to Orchard
-  orchard   Orchard? @relation(fields: [orchardId], references: [id])
-  harvestId String?
-  harvest   Harvest? @relation(fields: [harvestId], references: [id])
-  expense   Decimal
-  note      String
-}
-
-model Income {
-  id        String   @id @default(uuid())
-  clerkId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  orchardId String? // Foreign key to link Expense to Orchard
-  orchard   Orchard? @relation(fields: [orchardId], references: [id])
-  harvestId String?
+  harvestId String
   harvest   Harvest? @relation(fields: [harvestId], references: [id])
   income    Decimal
+  expense   Decimal
   note      String
 }
 
