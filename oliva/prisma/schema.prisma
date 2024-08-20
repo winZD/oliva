@@ -25,20 +25,7 @@ model Orchard {
   note      String
   harvests  Harvest[]
   expenses  Expense[]
-  Income    Income[]
-}
-
-model Expense {
-  id        String   @id @default(uuid())
-  clerkId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  orchardId String // Foreign key to link Expense to Orchard
-  orchard   Orchard? @relation(fields: [orchardId], references: [id])
-  harvestId String?
-  harvest   Harvest? @relation(fields: [harvestId], references: [id])
-  expense   Decimal
-  note      String
+  incomes   Income[]
 }
 
 model Harvest {
@@ -52,6 +39,19 @@ model Harvest {
   orchard        Orchard?  @relation(fields: [orchardId], references: [id])
   expenses       Expense[]
   incomes        Income[]
+}
+
+model Expense {
+  id        String   @id @default(uuid())
+  clerkId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orchardId String // Foreign key to link Expense to Orchard
+  orchard   Orchard? @relation(fields: [orchardId], references: [id])
+  harvestId String?
+  harvest   Harvest? @relation(fields: [harvestId], references: [id])
+  expense   Decimal
+  note      String
 }
 
 model Income {
