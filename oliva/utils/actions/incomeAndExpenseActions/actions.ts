@@ -6,7 +6,7 @@ export const getIncomeAndExpenseAction = async (): Promise<
 > => {
   try {
     const incomesAndExpenses: IncomeAndExpense[] =
-      await prisma.expenseAndIncome.findMany({
+      await prisma.incomeAndExpense.findMany({
         include: { harvest: true },
         orderBy: { harvest: { year: "desc" } },
       });
