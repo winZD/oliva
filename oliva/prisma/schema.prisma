@@ -45,8 +45,8 @@ model ExpenseAndIncome {
   updatedAt DateTime @updatedAt
   harvestId String
   harvest   Harvest? @relation(fields: [harvestId], references: [id])
-  income    Decimal
-  expense   Decimal
+  income    Float
+  expense   Float
   note      String
 }
 
