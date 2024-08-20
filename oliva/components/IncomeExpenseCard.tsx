@@ -26,12 +26,12 @@ const IncomeExpenseCard = () => {
   ];
   const chartConfig = {
     desktop: {
-      label: "Desktop",
-      color: "hsl(var(--chart-1))",
+      label: "Expense",
+      color: "red",
     },
     mobile: {
-      label: "Mobile",
-      color: "hsl(var(--chart-2))",
+      label: "Income",
+      color: "green",
     },
   } satisfies ChartConfig;
 
