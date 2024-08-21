@@ -90,7 +90,17 @@ const OrchardCard = ({ data }: { data: OrchardType[] }) => {
           Showing total visitors for the last 6 months
         </div>
 
-        <Button asChild className="capitalize">
+        <Button
+          asChild
+          className="capitalize"
+          onClick={(e) => {
+            e.preventDefault();
+            const element = document.getElementById("table");
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+        >
           <Link href="/orchards#table">details</Link>
         </Button>
       </CardFooter>
