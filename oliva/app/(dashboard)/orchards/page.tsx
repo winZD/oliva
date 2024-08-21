@@ -18,6 +18,7 @@ import {
 } from "@tanstack/react-query";
 import AlertDialogComponent from "@/components/AlertDialogComponent";
 import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
+import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 
 const OrchardsPage = async () => {
   const queryClient = new QueryClient();
@@ -28,6 +29,10 @@ const OrchardsPage = async () => {
   await queryClient.prefetchQuery({
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["incomeAndExpense"],
+    queryFn: () => getIncomeAndExpenseAction(),
   });
 
   return (

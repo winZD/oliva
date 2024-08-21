@@ -14,8 +14,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { IncomeAndExpense } from "@/utils/models/incomeAndExpenseModel";
 
-const IncomeExpenseCard = () => {
+const IncomeExpenseCard = ({ data }: { data: IncomeAndExpense[] }) => {
   const chartData = [
     { month: "January", desktop: 186, mobile: 80 },
     { month: "February", desktop: 305, mobile: 200 },
@@ -25,11 +26,11 @@ const IncomeExpenseCard = () => {
     { month: "June", desktop: 214, mobile: 140 },
   ];
   const chartConfig = {
-    desktop: {
+    expense: {
       label: "Expense",
       color: "red",
     },
-    mobile: {
+    income: {
       label: "Income",
       color: "green",
     },
@@ -43,21 +44,24 @@ const IncomeExpenseCard = () => {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey={"harvest.year"}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => {
+                const date = new Date(value).getFullYear();
+                return date.toString();
+              }}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar dataKey="expense" fill="var(--color-expense)" radius={4} />
+            <Bar dataKey="income" fill="var(--color-income)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>
