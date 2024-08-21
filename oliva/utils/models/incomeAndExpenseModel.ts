@@ -7,5 +7,5 @@ export type IncomeAndExpense = {
   expense: number;
   note: string;
   harvestId: string;
-  harvest: HarvestType;
+  harvest: HarvestType | null;
 };

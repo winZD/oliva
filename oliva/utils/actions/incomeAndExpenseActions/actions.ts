@@ -1,3 +1,4 @@
+"use server";
 import prisma from "@/utils/db";
 import { IncomeAndExpense } from "@/utils/models/incomeAndExpenseModel";
 

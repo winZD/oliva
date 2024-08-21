@@ -10,7 +10,7 @@ const IncomeExpenseContainer = () => {
   });
 
   console.log(data);
-  return <IncomeExpenseCard data={data || []} />;
+  return <IncomeExpenseCard data={data?.length ? data : []} />;
 };
 
 export default IncomeExpenseContainer;
