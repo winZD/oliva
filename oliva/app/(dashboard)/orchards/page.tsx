@@ -48,7 +48,7 @@ const OrchardsPage = async () => {
             <PrunningAndHarvestingCarData data={pruneHarvestData} />
           </div>
           */}
-          <div className="md:hidden lg:inline lg:col-span-3">
+          <div id="table" className="md:hidden lg:inline lg:col-span-3">
             <OrchardTable /* data={data}  */ />
           </div>
         </div>

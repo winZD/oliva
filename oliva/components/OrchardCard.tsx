@@ -15,6 +15,7 @@ import { TrendingUp } from "lucide-react";
 import { OrchardType } from "@/utils/models/orchardModel";
 import { barColors } from "@/utils/chartColors";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const OrchardCard = ({ data }: { data: OrchardType[] }) => {
   const totalTrees = React.useMemo(() => {
@@ -88,7 +89,10 @@ const OrchardCard = ({ data }: { data: OrchardType[] }) => {
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last 6 months
         </div>
-        <Button className="capitalize ">detailss</Button>
+
+        <Button asChild className="capitalize">
+          <Link href="/orchards#table">details</Link>
+        </Button>
       </CardFooter>
     </Card>
   );
