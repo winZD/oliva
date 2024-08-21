@@ -11,6 +11,8 @@ import {
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
@@ -51,6 +53,11 @@ const IncomeExpenseCard = ({ data }: { data: IncomeAndExpense[] }) => {
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
+            />
+            <ChartLegend
+              content={
+                data.length === 0 ? <p>No data</p> : <ChartLegendContent />
+              }
             />
             <Bar dataKey="expense" fill="var(--color-expense)" radius={4} />
             <Bar dataKey="income" fill="var(--color-income)" radius={4} />
