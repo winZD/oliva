@@ -4,7 +4,7 @@ import HarvestChartContainer from "@/components/HarvestChartContainer";
 import IncomeExpenseContainer from "@/components/IncomeExpenseChartContainer";
 import OrchardCard from "@/components/OrchardCard";
 import OrchardChartContainer from "@/components/OrchardChartContainer";
-import PrunningAndHarvestingCarData from "@/components/PrunningAndHarvestingCard";
+
 import StatsDataContainer from "@/components/StatsDataContainer";
 import OrchardTable from "@/components/OrchardTable";
 
