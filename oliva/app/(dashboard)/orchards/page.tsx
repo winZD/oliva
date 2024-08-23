@@ -31,7 +31,7 @@ const OrchardsPage = async () => {
     queryFn: () => getHarvestsAction(),
   });
   await queryClient.prefetchQuery({
-    queryKey: ["incomeAndExpense"],
+    queryKey: ["incomesAndExpenses"],
     queryFn: () => getIncomeAndExpenseAction(),
   });
 

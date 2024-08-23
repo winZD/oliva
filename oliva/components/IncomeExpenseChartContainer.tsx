@@ -5,7 +5,7 @@ import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActio
 
 const IncomeExpenseContainer = () => {
   const { data, isPending } = useQuery({
-    queryKey: ["incomeAndExpense"],
+    queryKey: ["incomesAndExpenses"],
     queryFn: () => getIncomeAndExpenseAction(),
   });
 
