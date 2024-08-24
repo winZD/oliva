@@ -1,15 +1,13 @@
 import IncomeExpenseContainer from "@/components/IncomeExpenseChartContainer";
 import IncomeExpenseTable from "@/components/IncomeExpenseTable";
 
-const Expenses = () => {
+const IncomesAndExpenses = () => {
   return (
-    <div className="grid">
+    <div>
       <IncomeExpenseContainer />
-      <div>
-        <IncomeExpenseTable />
-      </div>
+      <IncomeExpenseTable />
     </div>
   );
 };
 
-export default Expenses;
+export default IncomesAndExpenses;
