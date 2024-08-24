@@ -12,7 +12,10 @@ import {
   TableRow,
 } from "./ui/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getIncomesAndExpensesAction } from "@/utils/actions/incomeAndExpenseActions/actions";
+import {
+  deleteIncomeAndExpenseAction,
+  getIncomesAndExpensesAction,
+} from "@/utils/actions/incomeAndExpenseActions/actions";
 import AlertDialogComponent from "./AlertDialogComponent";
 
 const IncomeExpenseTable = () => {
@@ -24,7 +27,7 @@ const IncomeExpenseTable = () => {
   });
 
   const { mutate, isPending: mutationIsPending } = useMutation({
-    /*  mutationFn: (id: string) => deleteIncomeAndExpenseAction(id), */
+    mutationFn: (id: string) => deleteIncomeAndExpenseAction(id),
     onSuccess: (data) => {
       if (!data) {
         /*  toast({
