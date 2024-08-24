@@ -18,12 +18,14 @@ const Sidebar = () => {
         {links.map((link) => {
           return (
             <Button
+              className="justify-start"
               asChild
               key={link.href}
               variant={pathname === link.href ? "default" : "link"}
             >
               <Link href={link.href} className="flex items-center gap-x-2 ">
-                {link.icon} <span className="capitalize">{link.label}</span>
+                {link.icon}{" "}
+                <span className="capitalize text-wrap">{link.label}</span>
               </Link>
             </Button>
           );

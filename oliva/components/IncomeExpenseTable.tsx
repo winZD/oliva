@@ -15,11 +15,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 import AlertDialogComponent from "./AlertDialogComponent";
 
-type TableType = {
-  type: "expense" | "income";
-};
-
-const IncomeExpenseTable = ({ type }: TableType) => {
+const IncomeExpenseTable = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
@@ -58,12 +54,9 @@ const IncomeExpenseTable = ({ type }: TableType) => {
         <TableCaption>Income and expense list</TableCaption>
         <TableHeader>
           <TableRow>
-            {type === "income" && (
-              <TableHead className="w-[100px]">Income</TableHead>
-            )}
-            {type === "expense" && <TableHead>Expense</TableHead>}
+            <TableHead className="w-[100px]">Income</TableHead>
+            <TableHead>Expense</TableHead>
             <TableHead>Harvest year</TableHead>
-
             <TableHead></TableHead>
             <TableHead></TableHead>
           </TableRow>
@@ -71,18 +64,13 @@ const IncomeExpenseTable = ({ type }: TableType) => {
         <TableBody>
           {incomesAndExpenses?.map((incomeAndExpense) => (
             <TableRow key={incomeAndExpense.id}>
-              {type === "income" && (
-                <TableCell className="font-medium">
-                  {incomeAndExpense.income}
-                </TableCell>
-              )}
-              {type === "expense" && (
-                <TableCell>{incomeAndExpense.expense}</TableCell>
-              )}
+              <TableCell className="font-medium">
+                {incomeAndExpense.income}
+              </TableCell>
+              <TableCell>{incomeAndExpense.expense}</TableCell>
               <TableCell>
                 {incomeAndExpense.harvest?.year.getFullYear()}
               </TableCell>
-
               <TableCell className="text-right">
                 <AlertDialogComponent
                   props={{

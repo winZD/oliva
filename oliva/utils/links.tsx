@@ -29,13 +29,8 @@ const links: NavLink[] = [
     icon: <Cherry />,
   },
   {
-    href: "/expenses",
-    label: "expenses",
-    icon: <ChartColumnBig />,
-  },
-  {
-    href: "/incomes",
-    label: "incomes",
+    href: "/incomes-and-expenses",
+    label: "incomes and expenses",
     icon: <HandCoins />,
   },
 ];

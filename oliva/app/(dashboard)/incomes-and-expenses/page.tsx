@@ -1,11 +1,12 @@
+import IncomeExpenseContainer from "@/components/IncomeExpenseChartContainer";
 import IncomeExpenseTable from "@/components/IncomeExpenseTable";
 
 const Expenses = () => {
   return (
     <div className="grid">
-      <div>big line chart </div>
+      <IncomeExpenseContainer />
       <div>
-        <IncomeExpenseTable type="expense" />
+        <IncomeExpenseTable />
       </div>
     </div>
   );
