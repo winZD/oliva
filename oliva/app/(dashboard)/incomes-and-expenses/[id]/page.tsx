@@ -28,6 +28,10 @@ const IncomeAndExpenseDetailsPage = async ({
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
   });
+  await queryClient.prefetchQuery({
+    queryKey: ["incomeAndExpense", params?.id],
+    queryFn: () => getIncomeAndExpenseAction(params?.id),
+  });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <EditIncomeAndExpenseForm incomeAndExpenseId={params?.id} />

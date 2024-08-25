@@ -1,5 +1,4 @@
 "use client";
-import { createAndEditOrchardFormSchema } from "@/utils/actions/orchardActions/validations";
 import { CreateAndEditIncomeAndExpenseType } from "@/utils/models/incomeAndExpenseModel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -12,6 +11,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 import { useRouter } from "next/navigation";
 import { createAndEditIncomeAndExpenseFormSchema } from "@/utils/actions/incomeAndExpenseActions/validations";
+import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 
 const EditIncomeAndExpenseForm = ({
   incomeAndExpenseId,
@@ -22,6 +22,15 @@ const EditIncomeAndExpenseForm = ({
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
   });
+  const prepareData =
+    harvestData?.map((n) => ({
+      id: n.id,
+      name: n.year.getFullYear().toString(),
+    })) || [];
+  const { data: incomeAndExpenseData } = useQuery({
+    queryKey: ["incomeAndExpense", incomeAndExpenseId],
+    queryFn: () => getIncomeAndExpenseAction(incomeAndExpenseId),
+  });
 
   // 1. Define your form.
   const form = useForm<CreateAndEditIncomeAndExpenseType>({
@@ -30,9 +39,10 @@ const EditIncomeAndExpenseForm = ({
       expense: 0,
       income: 0,
       year: new Date(),
-      harvestId: "",
+      harvestId: incomeAndExpenseData?.harvestId || "",
     },
   });
+
   const router = useRouter();
   const queryClient = useQueryClient();
   /* const { mutate } = useMutation({
@@ -66,17 +76,13 @@ const EditIncomeAndExpenseForm = ({
       >
         <h2 className="capitalize font-semibold text-4xl mb-6">edit IE</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
+          <p>{incomeAndExpenseData?.expense}</p>
           <CustomFormSelect
             name="harvestId"
             placeholder="choose harvest"
             control={form.control}
             labelText="harvests"
-            items={
-              harvestData?.map((n) => ({
-                name: n.year.getFullYear().toString(),
-                id: n.id,
-              })) || []
-            }
+            items={prepareData}
           />
           <CustomFormField name={"income"} control={form.control} />
           <CustomFormField name={"expense"} control={form.control} />
