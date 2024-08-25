@@ -91,7 +91,7 @@ const IncomeExpenseTable = () => {
               <TableCell className="text-right">
                 <Button
                   onClick={() =>
-                    router.push(`incomes-expenses/${incomeAndExpense?.id}`)
+                    router.push(`incomes-and-expenses/${incomeAndExpense?.id}`)
                   }
                   size={"icon"}
                 >

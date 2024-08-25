@@ -1,3 +1,4 @@
+import CreateIncomeAndExpenseForm from "@/components/CreateIncomeAndExpenseForm";
 import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 import {
   dehydrate,
@@ -15,7 +16,11 @@ const IncomeAndExpenseDetailsPage = async ({
     queryKey: ["incomeAndExpense", params?.id],
     queryFn: () => getIncomeAndExpenseAction(params?.id),
   });
-  return <HydrationBoundary state={dehydrate(queryClient)}></HydrationBoundary>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CreateIncomeAndExpenseForm />
+    </HydrationBoundary>
+  );
 };
 
 export default IncomeAndExpenseDetailsPage;
