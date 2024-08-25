@@ -25,7 +25,7 @@ const IncomeAndExpenseDetailsPage = async ({
 }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["harvests", params?.id],
+    queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
   });
   return (
