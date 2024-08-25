@@ -1,13 +1,17 @@
 "use server";
 import prisma from "@/utils/db";
-import { IncomeAndExpense } from "@/utils/models/incomeAndExpenseModel";
+import {
+  CreateAndEditIncomeAndExpenseType,
+  IncomeAndExpenseType,
+} from "@/utils/models/incomeAndExpenseModel";
 import { redirect } from "next/navigation";
+import { createAndEditIncomeAndExpenseFormSchema } from "./validations";
 
 export const getIncomesAndExpensesAction = async (): Promise<
-  IncomeAndExpense[] | null
+  IncomeAndExpenseType[] | null
 > => {
   try {
-    const incomesAndExpenses: IncomeAndExpense[] =
+    const incomesAndExpenses: IncomeAndExpenseType[] =
       await prisma.incomeAndExpense.findMany({
         include: { harvest: true },
         orderBy: { harvest: { year: "desc" } },
@@ -22,8 +26,8 @@ export const getIncomesAndExpensesAction = async (): Promise<
 
 export const getIncomeAndExpenseAction = async (
   id: string
-): Promise<IncomeAndExpense | null> => {
-  let incomeAndExpense: IncomeAndExpense | null = null;
+): Promise<IncomeAndExpenseType | null> => {
+  let incomeAndExpense: IncomeAndExpenseType | null = null;
   try {
     incomeAndExpense = await prisma.incomeAndExpense.findUnique({
       where: { id, clerkId: "1234567890" },
@@ -59,17 +63,41 @@ export const getIncomeAndExpenseAction = async (
 
 export const deleteIncomeAndExpenseAction = async (
   id: string
-): Promise<IncomeAndExpense | null> => {
+): Promise<IncomeAndExpenseType | null> => {
   /* const userId = authenticateAndRedirect(); */
 
   try {
-    const incomeAndExpense: IncomeAndExpense =
+    const incomeAndExpense: IncomeAndExpenseType =
       await prisma.incomeAndExpense.delete({
         where: { id, clerkId: "1234567890" },
         include: { harvest: true },
       });
     return incomeAndExpense;
   } catch (error) {
+    return null;
+  }
+};
+
+export const createIncomeAndExpenseAction = async (
+  values: CreateAndEditIncomeAndExpenseType
+): Promise<IncomeAndExpenseType | null> => {
+  /* const userId = authenticateAndRedirect(); */
+  try {
+    createAndEditIncomeAndExpenseFormSchema.parse(values);
+    const incomeAndExpense: IncomeAndExpenseType =
+      await prisma.incomeAndExpense.create({
+        include: { harvest: true },
+        data: {
+          clerkId: "1234567890",
+          ...values,
+          harvestId: "",
+
+          note: "",
+        },
+      });
+    return incomeAndExpense;
+  } catch (error) {
+    console.log(error);
     return null;
   }
 };

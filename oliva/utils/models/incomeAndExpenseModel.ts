@@ -2,7 +2,7 @@ import { z } from "zod";
 import { createAndEditIncomeAndExpenseFormSchema } from "../actions/incomeAndExpenseActions/validations";
 import { HarvestType } from "./harvestModel";
 
-export type IncomeAndExpense = {
+export type IncomeAndExpenseType = {
   id: string;
   clerkId: string;
   income: number;

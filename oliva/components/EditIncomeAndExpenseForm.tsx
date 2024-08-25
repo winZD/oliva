@@ -11,11 +11,16 @@ import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 
-const CreateIncomeAndExpenseForm = () => {
+const EditIncomeAndExpenseForm = ({
+  incomeAndExpenseId,
+}: {
+  incomeAndExpenseId: string;
+}) => {
   const { data: harvestData, isPending } = useQuery({
     queryKey: ["harvests"],
     queryFn: () => getHarvestsAction(),
   });
+  console.log(harvestData);
   // 1. Define your form.
   const form = useForm<CreateAndEditIncomeAndExpenseType>({
     resolver: zodResolver(createAndEditOrchardFormSchema),
@@ -62,4 +67,4 @@ const CreateIncomeAndExpenseForm = () => {
   );
 };
 
-export default CreateIncomeAndExpenseForm;
+export default EditIncomeAndExpenseForm;

@@ -1,9 +1,21 @@
+import CreateHarvestForm from "@/components/CreateHarvestForm";
 import CreateIncomeAndExpenseForm from "@/components/CreateIncomeAndExpenseForm";
-import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
+import EditIncomeAndExpenseForm from "@/components/EditIncomeAndExpenseForm";
+import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
+import {
+  createIncomeAndExpenseAction,
+  getIncomeAndExpenseAction,
+} from "@/utils/actions/incomeAndExpenseActions/actions";
+import { createAndEditIncomeAndExpenseFormSchema } from "@/utils/actions/incomeAndExpenseActions/validations";
+import { CreateAndEditIncomeAndExpenseType } from "@/utils/models/incomeAndExpenseModel";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 
 const IncomeAndExpenseDetailsPage = async ({
@@ -13,12 +25,12 @@ const IncomeAndExpenseDetailsPage = async ({
 }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["incomeAndExpense", params?.id],
-    queryFn: () => getIncomeAndExpenseAction(params?.id),
+    queryKey: ["harvests", params?.id],
+    queryFn: () => getHarvestsAction(),
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CreateIncomeAndExpenseForm />
+      <EditIncomeAndExpenseForm incomeAndExpenseId={params?.id} />
     </HydrationBoundary>
   );
 };
