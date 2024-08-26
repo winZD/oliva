@@ -43,23 +43,29 @@ export const getIncomeAndExpenseAction = async (
   return incomeAndExpense;
 };
 
-/* export const updateIncomeAndExpenseAction = async (
+export const updateIncomeAndExpenseAction = async (
   id: string,
-  values: any
-): Promise<IncomeAndExpense | null> => {
-   //const userId = authenticateAndRedirect();
+  values: CreateAndEditIncomeAndExpenseType
+): Promise<IncomeAndExpenseType | null> => {
+  //const userId = authenticateAndRedirect();
 
   try {
-    const incomeAndExpense: IncomeAndExpense =
+    const incomeAndExpense: IncomeAndExpenseType =
       await prisma.incomeAndExpense.update({
-        where: { id },
-        data: { ...values },
+        where: { id, clerkId: "1234567890" },
+        include: { harvest: true },
+        data: {
+          expense: values.expense,
+          income: values.income,
+          harvestId: values.harvestId,
+        },
       });
     return incomeAndExpense;
   } catch (error) {
+    console.log(error);
     return null;
   }
-}; */
+};
 
 export const deleteIncomeAndExpenseAction = async (
   id: string

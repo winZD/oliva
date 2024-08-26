@@ -11,7 +11,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
 import { useRouter } from "next/navigation";
 import { createAndEditIncomeAndExpenseFormSchema } from "@/utils/actions/incomeAndExpenseActions/validations";
-import { getIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
+import {
+  getIncomeAndExpenseAction,
+  updateIncomeAndExpenseAction,
+} from "@/utils/actions/incomeAndExpenseActions/actions";
 
 const EditIncomeAndExpenseForm = ({
   incomeAndExpenseId,
@@ -45,26 +48,28 @@ const EditIncomeAndExpenseForm = ({
 
   const router = useRouter();
   const queryClient = useQueryClient();
-  /* const { mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (values: CreateAndEditIncomeAndExpenseType) =>
-      updateHarvestAction(harvestId, values),
+      updateIncomeAndExpenseAction(incomeAndExpenseId, values),
     onSuccess: (data) => {
       if (!data) {
-          //toast({ description: "There was an error!" });
+        //toast({ description: "There was an error!" });
         return;
       }
       //toast({ description: "ORchard edited!" });
       queryClient.invalidateQueries({ queryKey: ["incomesAndExpenses"] });
-      queryClient.invalidateQueries({ queryKey: ["incomeANdExpense", incomeAndExpenseId] });
+      queryClient.invalidateQueries({
+        queryKey: ["incomeAndExpense", incomeAndExpenseId],
+      });
 
-      router.push("/harvests");
+      router.push("/incomes-and-expenses");
     },
-  }); */
+  });
 
   function onSubmit(values: CreateAndEditIncomeAndExpenseType) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    /*  mutate(values); */
+    mutate(values);
     console.log("KLIK");
     console.log({ ...values });
   }
