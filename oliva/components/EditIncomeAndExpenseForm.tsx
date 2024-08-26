@@ -36,9 +36,9 @@ const EditIncomeAndExpenseForm = ({
   const form = useForm<CreateAndEditIncomeAndExpenseType>({
     resolver: zodResolver(createAndEditIncomeAndExpenseFormSchema),
     defaultValues: {
-      expense: 0,
-      income: 0,
-      year: new Date(),
+      expense: incomeAndExpenseData?.expense,
+      income: incomeAndExpenseData?.income,
+      year: incomeAndExpenseData?.harvest?.year || new Date(),
       harvestId: incomeAndExpenseData?.harvestId || "",
     },
   });
@@ -76,7 +76,6 @@ const EditIncomeAndExpenseForm = ({
       >
         <h2 className="capitalize font-semibold text-4xl mb-6">edit IE</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
-          <p>{incomeAndExpenseData?.expense}</p>
           <CustomFormSelect
             name="harvestId"
             placeholder="choose harvest"

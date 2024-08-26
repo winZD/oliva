@@ -42,7 +42,7 @@ const CustomFormSelect = <T extends { id: string; name: string }>({
                 <SelectTrigger>
                   <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="overflow-y-auto h-56">
                   {items.map((item) => (
                     <SelectItem key={item.id} value={item.id}>
                       {item.name}
