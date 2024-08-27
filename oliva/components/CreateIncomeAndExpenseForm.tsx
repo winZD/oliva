@@ -9,7 +9,10 @@ import CustomFormSelect from "./CustomFormSelect";
 import { CustomFormField } from "./FormComponents";
 import { Button } from "./ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getHarvestsAction } from "@/utils/actions/harvestActions/actions";
+import {
+  getHarvestsAction,
+  getHarvestsDistinctAction,
+} from "@/utils/actions/harvestActions/actions";
 import { useRouter } from "next/navigation";
 import { createIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 import { createAndEditIncomeAndExpenseFormSchema } from "@/utils/actions/incomeAndExpenseActions/validations";
@@ -17,7 +20,7 @@ import { createAndEditIncomeAndExpenseFormSchema } from "@/utils/actions/incomeA
 const CreateIncomeAndExpenseForm = () => {
   const { data: harvestData, isPending } = useQuery({
     queryKey: ["harvests"],
-    queryFn: () => getHarvestsAction(),
+    queryFn: () => getHarvestsDistinctAction(),
   });
   // 1. Define your form.
   const form = useForm<CreateAndEditIncomeAndExpenseType>({
@@ -55,6 +58,7 @@ const CreateIncomeAndExpenseForm = () => {
     mutate(values);
     console.log(values);
   }
+  console.log(harvestData);
   return (
     <Form {...form}>
       <form

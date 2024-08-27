@@ -21,6 +21,38 @@ export const getHarvestsAction = async (): Promise<HarvestType[] | null> => {
   }
 };
 
+export const getHarvestsDistinctAction = async (): Promise<
+  HarvestType[] | null
+> => {
+  try {
+    const harvests: HarvestType[] = await prisma.harvest.findMany({
+      orderBy: { year: "desc" },
+      include: { orchard: true },
+    });
+
+    // Group harvests by year and keep the most recent one
+    const uniqueHarvests = harvests.reduce((acc, current) => {
+      const existingHarvest = acc.find(
+        (harvest) => harvest.year.getFullYear() === current.year.getFullYear()
+      );
+
+      if (
+        !existingHarvest ||
+        current.year.getFullYear() > existingHarvest.year.getFullYear()
+      ) {
+        acc.push(current);
+      }
+
+      return acc;
+    }, [] as HarvestType[]);
+
+    return uniqueHarvests;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const getHarvestByIdAction = async (
   id: string
 ): Promise<HarvestType | null> => {
