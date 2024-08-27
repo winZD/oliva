@@ -9,7 +9,7 @@ export type IncomeAndExpenseType = {
   expense: number;
   note: string;
   harvestId: string;
-  harvest: HarvestType | null;
+  harvest?: HarvestType | null;
 };
 
 export type CreateAndEditIncomeAndExpenseType = z.infer<

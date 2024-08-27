@@ -41,7 +41,7 @@ const EditIncomeAndExpenseForm = ({
     defaultValues: {
       expense: incomeAndExpenseData?.expense,
       income: incomeAndExpenseData?.income,
-      year: incomeAndExpenseData?.harvest?.year || new Date(),
+      /* year: incomeAndExpenseData?.harvest?.year || new Date(), */
       harvestId: incomeAndExpenseData?.harvestId || "",
     },
   });
@@ -90,7 +90,7 @@ const EditIncomeAndExpenseForm = ({
           />
           <CustomFormField name={"income"} control={form.control} />
           <CustomFormField name={"expense"} control={form.control} />
-          <DatePicker name="year" control={form.control} label="year" />
+          {/* <DatePicker name="year" control={form.control} label="year" /> */}
           <Button type="submit">Add</Button>
         </div>
       </form>

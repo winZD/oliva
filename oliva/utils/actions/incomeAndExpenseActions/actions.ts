@@ -6,6 +6,7 @@ import {
 } from "@/utils/models/incomeAndExpenseModel";
 import { redirect } from "next/navigation";
 import { createAndEditIncomeAndExpenseFormSchema } from "./validations";
+import { connect } from "http2";
 
 export const getIncomesAndExpensesAction = async (): Promise<
   IncomeAndExpenseType[] | null
@@ -53,7 +54,7 @@ export const updateIncomeAndExpenseAction = async (
     const incomeAndExpense: IncomeAndExpenseType =
       await prisma.incomeAndExpense.update({
         where: { id, clerkId: "1234567890" },
-        include: { harvest: true },
+        /* include: { harvest: true }, */
         data: {
           expense: values.expense,
           income: values.income,
