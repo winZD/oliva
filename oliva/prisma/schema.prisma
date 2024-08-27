@@ -35,7 +35,7 @@ model Harvest {
   oil_percentage     Float
   orchardId          String? // Allow null to create Orchards without a Harvest initially
   orchard            Orchard?           @relation(fields: [orchardId], references: [id])
-  IncomesAndExpenses IncomeAndExpense[]
+  incomesAndExpenses IncomeAndExpense[]
 }
 
 model IncomeAndExpense {
