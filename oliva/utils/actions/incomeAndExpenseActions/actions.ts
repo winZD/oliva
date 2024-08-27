@@ -97,8 +97,6 @@ export const createIncomeAndExpenseAction = async (
         data: {
           clerkId: "1234567890",
           ...values,
-          harvestId: "",
-
           note: "",
         },
       });

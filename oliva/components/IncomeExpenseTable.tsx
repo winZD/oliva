@@ -49,7 +49,10 @@ const IncomeExpenseTable = () => {
   return (
     <div>
       <div className="flex justify-end py-8">
-        <Button onClick={() => ""} className="capitalize w-28" type="submit">
+        <Button
+          onClick={() => router.push(`add-income-and-expense`)}
+          className="capitalize w-28"
+        >
           {"add new"}
         </Button>
       </div>
