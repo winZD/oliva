@@ -36,6 +36,9 @@ model Harvest {
   orchardId          String? // Allow null to create Orchards without a Harvest initially
   orchard            Orchard?           @relation(fields: [orchardId], references: [id])
   incomesAndExpenses IncomeAndExpense[]
+  transactionType    String?
+  income             String?
+  expense            String?
 }
 
 model IncomeAndExpense {
