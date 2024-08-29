@@ -37,8 +37,8 @@ model Harvest {
   orchard            Orchard?           @relation(fields: [orchardId], references: [id])
   incomesAndExpenses IncomeAndExpense[]
   transactionType    String?
-  income             String?
-  expense            String?
+  income             Decimal?           @db.Decimal(65, 30)
+  expense            Decimal?           @db.Decimal(65, 30)
 }
 
 model IncomeAndExpense {
