@@ -10,7 +10,10 @@ import CustomFormSelect from "./CustomFormSelect";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrchardsAction } from "@/utils/actions/orchardActions/actions";
 import { createAndEditHarvestFormSchema } from "@/utils/actions/harvestActions/validations";
-import { CreateAndEditHarvestType } from "@/utils/models/harvestModel";
+import {
+  CreateAndEditHarvestType,
+  TransactionType,
+} from "@/utils/models/harvestModel";
 import { createHarvestAction } from "@/utils/actions/harvestActions/actions";
 import { useRouter } from "next/navigation";
 
@@ -29,6 +32,9 @@ const CreateHarvestForm = () => {
       oil_percentage: 0,
       quantity: 0,
       orchardId: "",
+      transactionType: undefined,
+      income: "",
+      expense: "",
     },
   });
 
@@ -69,8 +75,24 @@ const CreateHarvestForm = () => {
             labelText="orchards"
             items={data || []}
           />
+          <CustomFormSelect
+            name="transactionType"
+            placeholder="choose transaction"
+            control={form.control}
+            labelText="transaction type"
+            items={Object.values(TransactionType).map((value) => ({
+              id: value,
+              name: value,
+            }))}
+          />
           <CustomFormField name={"oil_percentage"} control={form.control} />
           <CustomFormField name={"quantity"} control={form.control} />
+          {form.getValues("transactionType") === "income" && (
+            <CustomFormField name={"income"} control={form.control} />
+          )}{" "}
+          {form.getValues("transactionType") === "expense" && (
+            <CustomFormField name={"expense"} control={form.control} />
+          )}
           <Button type="submit">Add</Button>
         </div>
       </form>

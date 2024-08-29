@@ -1,3 +1,4 @@
+import { TransactionType } from "@/utils/models/harvestModel";
 import { z } from "zod";
 
 export const createAndEditHarvestFormSchema = z.object({
@@ -8,5 +9,8 @@ export const createAndEditHarvestFormSchema = z.object({
   oil_percentage: z.number(),
   quantity: z.number(),
   orchardId: z.string(),
+  transactionType: z.nativeEnum(TransactionType),
+  expense: z.string(),
+  income: z.string(),
   /* orchard: z.object({}), */
 });
