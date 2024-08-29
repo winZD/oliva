@@ -1,3 +1,4 @@
+"use client";
 import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import {
@@ -16,9 +17,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { IncomeAndExpense } from "@/utils/models/incomeAndExpenseModel";
+import { IncomeAndExpenseType } from "@/utils/models/incomeAndExpenseModel";
+import CustomFormSelect from "./CustomFormSelect";
+import { useForm } from "react-hook-form";
+import { Form } from "./ui/form";
 
-const IncomeExpenseCard = ({ data }: { data: IncomeAndExpense[] }) => {
+const IncomeExpenseCard = ({ data }: { data: IncomeAndExpenseType[] }) => {
   const chartConfig = {
     expense: {
       label: "Expense",
@@ -30,9 +34,30 @@ const IncomeExpenseCard = ({ data }: { data: IncomeAndExpense[] }) => {
     },
   } satisfies ChartConfig;
 
+  const form = useForm<{ year: string }>({
+    defaultValues: {
+      year: "2024",
+    },
+  });
+
   return (
     <Card className="bg-muted">
       <CardHeader>
+        <Form {...form}>
+          <form>
+            <CustomFormSelect
+              name="year"
+              labelText="search"
+              placeholder="Enter year"
+              control={form.control}
+              items={[
+                { id: "2024", name: "2024" },
+                { id: "2023", name: "2023" },
+                // Add other years as needed
+              ]}
+            />
+          </form>
+        </Form>
         <CardTitle>Income/Expense Chart - Multiple</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
