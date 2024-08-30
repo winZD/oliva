@@ -65,7 +65,7 @@ const CreateHarvestForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="bg-muted p-8 rounded"
       >
-        <h2 className="capitalize font-semibold text-4xl mb-6">edit harvest</h2>
+        <h2 className="capitalize font-semibold text-4xl mb-6">Add harvest</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-end ">
           <DatePicker name="year" control={form.control} label="year" />
           <CustomFormSelect
