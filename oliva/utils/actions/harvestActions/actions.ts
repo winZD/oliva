@@ -7,6 +7,7 @@ import {
   HarvestType,
 } from "../../models/harvestModel";
 import { createAndEditHarvestFormSchema } from "./validations";
+import { Prisma } from "@prisma/client";
 export const getHarvestsAction = async (): Promise<HarvestType[] | null> => {
   try {
     const harvests: HarvestType[] = await prisma.harvest.findMany({
@@ -15,6 +16,78 @@ export const getHarvestsAction = async (): Promise<HarvestType[] | null> => {
     });
 
     return harvests;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getHarvestsYears = async (): Promise<
+  { id: string; year: number }[] | null
+> => {
+  try {
+    const query = Prisma.sql`
+    SELECT DISTINCT CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER) AS year
+    FROM "Harvest"
+    ORDER BY CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER) DESC
+  `;
+
+    /*     const query = Prisma.sql`
+  SELECT 
+    "Harvest".id,
+    CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER) AS year
+  FROM "Harvest"
+  GROUP BY "Harvest".id, CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER)
+`; */
+
+    const harvestsYears: { id: string; year: number }[] =
+      await prisma.$queryRaw<{ id: string; year: number }[]>(query);
+
+    console.log(harvestsYears);
+    return harvestsYears;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+//TODO: temporary, remove it after testing
+export const getHarvestsGroupedBy = async (): Promise<any[] | null> => {
+  try {
+    /* 
+     const query = Prisma.sql`
+    SELECT DISTINCT EXTRACT (year FROM year) as year
+    FROM "Harvest"
+    ORDER BY extract (year FROM year) DESC
+  `;
+
+    const harvests: HarvestType[] = await prisma.$queryRaw<HarvestType[]>(
+      query
+    );
+    */
+
+    const harvest = await prisma.harvest.groupBy({
+      by: ["year", "quantity"],
+      _sum: { quantity: true },
+      having: { quantity: { gte: 1 } },
+    });
+    const harvest2 = await prisma.harvest.aggregate({
+      _sum: {
+        quantity: true,
+      },
+      where: {
+        quantity: {
+          gte: 1,
+        },
+      },
+    });
+    const harvest3 = await prisma.harvest.findMany({
+      distinct: ["quantity"],
+      select: { quantity: true },
+    });
+
+    console.log("------------------------> ", harvest3);
+    return harvest;
   } catch (error) {
     console.log(error);
     return null;
@@ -36,6 +109,7 @@ export const getHarvestsDistinctAction = async (): Promise<
       query
     );
     */
+
     const harvests: HarvestType[] = await prisma.harvest.findMany({
       orderBy: { year: "desc" },
       include: { orchard: true },

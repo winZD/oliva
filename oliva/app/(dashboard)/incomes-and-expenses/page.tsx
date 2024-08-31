@@ -1,5 +1,6 @@
 import IncomeExpenseContainer from "@/components/IncomeExpenseChartContainer";
 import IncomeExpenseTable from "@/components/IncomeExpenseTable";
+import { getHarvestsGroupedBy } from "@/utils/actions/harvestActions/actions";
 import { getIncomesAndExpensesAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 import {
   dehydrate,
@@ -13,7 +14,11 @@ const IncomesAndExpenses = async () => {
     queryKey: ["incomesAndExpenses"],
     queryFn: () => getIncomesAndExpensesAction(),
   });
-
+  /*   await queryClient.prefetchQuery({
+    queryKey: ["harvests"],
+    queryFn: () => getHarvestsGroupedBy(),
+  });
+ */
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <IncomeExpenseContainer />

@@ -12,6 +12,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getHarvestsAction,
   getHarvestsDistinctAction,
+  getHarvestsGroupedBy,
+  getHarvestsYears,
 } from "@/utils/actions/harvestActions/actions";
 import { useRouter } from "next/navigation";
 import { createIncomeAndExpenseAction } from "@/utils/actions/incomeAndExpenseActions/actions";
@@ -22,6 +24,16 @@ const CreateIncomeAndExpenseForm = () => {
     queryKey: ["harvests"],
     queryFn: () => getHarvestsDistinctAction(),
   });
+  /*  const { data: testData } = useQuery({
+    queryKey: ["harv"],
+    queryFn: () => getHarvestsGroupedBy(),
+  }); */
+  const { data: testData } = useQuery({
+    queryKey: ["harvestYears"],
+    queryFn: () => getHarvestsYears(),
+  });
+
+  console.log(testData);
   // 1. Define your form.
   const form = useForm<CreateAndEditIncomeAndExpenseType>({
     resolver: zodResolver(createAndEditIncomeAndExpenseFormSchema),
@@ -58,7 +70,7 @@ const CreateIncomeAndExpenseForm = () => {
     mutate(values);
     console.log(values);
   }
-  console.log(harvestData);
+
   return (
     <Form {...form}>
       <form
