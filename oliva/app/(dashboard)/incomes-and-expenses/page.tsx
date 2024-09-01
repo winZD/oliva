@@ -1,6 +1,7 @@
 import IncomeExpenseContainer from "@/components/IncomeExpenseChartContainer";
 import IncomeExpenseTable from "@/components/IncomeExpenseTable";
-import { getHarvestsGroupedBy } from "@/utils/actions/harvestActions/actions";
+import { getHarvestsByYearsAction } from "@/utils/actions/harvestActions/actions";
+
 import { getIncomesAndExpensesAction } from "@/utils/actions/incomeAndExpenseActions/actions";
 import {
   dehydrate,
@@ -13,6 +14,11 @@ const IncomesAndExpenses = async () => {
   await queryClient.prefetchQuery({
     queryKey: ["incomesAndExpenses"],
     queryFn: () => getIncomesAndExpensesAction(),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["harvestsByYears"],
+    queryFn: () => getHarvestsByYearsAction(),
   });
   /*   await queryClient.prefetchQuery({
     queryKey: ["harvests"],

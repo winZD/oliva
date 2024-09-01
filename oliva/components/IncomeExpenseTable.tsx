@@ -17,6 +17,7 @@ import {
   getIncomesAndExpensesAction,
 } from "@/utils/actions/incomeAndExpenseActions/actions";
 import AlertDialogComponent from "./AlertDialogComponent";
+import { getHarvestsByYearsAction } from "@/utils/actions/harvestActions/actions";
 
 const IncomeExpenseTable = () => {
   const router = useRouter();

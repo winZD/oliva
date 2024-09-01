@@ -21,8 +21,16 @@ import { IncomeAndExpenseType } from "@/utils/models/incomeAndExpenseModel";
 import CustomFormSelect from "./CustomFormSelect";
 import { useForm } from "react-hook-form";
 import { Form } from "./ui/form";
+import { useQuery } from "@tanstack/react-query";
+import { getHarvestsByYearsAction } from "@/utils/actions/harvestActions/actions";
+import { HarvestType } from "@/utils/models/harvestModel";
 
 const IncomeExpenseCard = ({ data }: { data: IncomeAndExpenseType[] }) => {
+  const { data: yearData } = useQuery({
+    queryKey: ["harvestsByYears"],
+    queryFn: () => getHarvestsByYearsAction(),
+  });
+  console.log(yearData);
   const chartConfig = {
     expense: {
       label: "Expense",
@@ -50,11 +58,14 @@ const IncomeExpenseCard = ({ data }: { data: IncomeAndExpenseType[] }) => {
               labelText="search"
               placeholder="Enter year"
               control={form.control}
-              items={[
-                { id: "2024", name: "2024" },
-                { id: "2023", name: "2023" },
+              items={
+                yearData?.map((data) => ({
+                  id: data?.id || "",
+                  name: data?.harvestYear?.toString() || "",
+                })) ||
                 // Add other years as needed
-              ]}
+                []
+              }
             />
           </form>
         </Form>

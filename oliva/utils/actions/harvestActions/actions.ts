@@ -94,6 +94,23 @@ export const getHarvestsGroupedBy = async (): Promise<any[] | null> => {
   }
 };
 
+export const getHarvestsByYearsAction = async (): Promise<
+  HarvestType[] | null
+> => {
+  try {
+    const harvest: HarvestType[] = await prisma.harvest.findMany({
+      distinct: ["harvestYear"],
+      orderBy: { harvestYear: "desc" },
+    });
+
+    console.log(harvest);
+    return harvest;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const getHarvestsDistinctAction = async (): Promise<
   HarvestType[] | null
 > => {

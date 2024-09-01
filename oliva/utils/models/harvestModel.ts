@@ -7,6 +7,7 @@ export type HarvestType = {
   id: string;
   clerkId: string;
   year: Date;
+  harvestYear: number | null;
   quantity: number;
   position: string;
   oil_percentage: number;
