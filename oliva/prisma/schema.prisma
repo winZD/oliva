@@ -29,7 +29,8 @@ model Orchard {
 model Harvest {
   id                 String             @id @default(uuid())
   clerkId            String
-  year               DateTime
+  year               DateTime           @db.Date
+  harvestYear        Int?
   quantity           Float
   position           String
   oil_percentage     Float

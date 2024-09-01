@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Harvest" ALTER COLUMN "year" SET DATA TYPE DATE;
