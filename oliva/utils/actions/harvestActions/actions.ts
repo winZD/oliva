@@ -22,7 +22,27 @@ export const getHarvestsAction = async (): Promise<HarvestType[] | null> => {
   }
 };
 
-export const getHarvestsYears = async (): Promise<
+//
+
+export const getHarvestsYears = async (): Promise<HarvestType[] | null> => {
+  try {
+    const result = await prisma.harvest.findMany({
+      where: { clerkId: "1234567890" },
+      distinct: ["harvestYear"],
+    });
+
+    console.log(result);
+
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+//
+
+/* export const getHarvestsYears = async (): Promise<
   { id: string; year: number }[] | null
 > => {
   try {
@@ -32,24 +52,23 @@ export const getHarvestsYears = async (): Promise<
     ORDER BY CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER) DESC
   `;
 
-    /*     const query = Prisma.sql`
+         const query323 = Prisma.sql`
   SELECT 
     "Harvest".id,
     CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER) AS year
   FROM "Harvest"
   GROUP BY "Harvest".id, CAST(EXTRACT(YEAR FROM "Harvest".year) AS INTEGER)
-`; */
+`; 
 
     const harvestsYears: { id: string; year: number }[] =
       await prisma.$queryRaw<{ id: string; year: number }[]>(query);
 
-    console.log(harvestsYears);
     return harvestsYears;
   } catch (error) {
     console.log(error);
     return null;
   }
-};
+}; */
 
 //TODO: temporary, remove it after testing
 export const getHarvestsGroupedBy = async (): Promise<any[] | null> => {
